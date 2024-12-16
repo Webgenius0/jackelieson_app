@@ -82,6 +82,7 @@ class UtillScreenMobile extends StatelessWidget {
             // ),
             // theme: theme.isDarkMode ? dark : light,
             debugShowCheckedModeBanner: false,
+
             builder: (context, widget) {
               return MediaQuery(data: MediaQuery.of(context), child: widget!);
             },
