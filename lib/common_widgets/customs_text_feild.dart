@@ -243,7 +243,7 @@ class _CustomsTextFormFieldState extends State<CustomsTextFormField> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.r),
-        color: AppColors.cFFFFF,
+        color: AppColors.cFFFFFF,
       ),
       child: TextFormField(
         autovalidateMode: AutovalidateMode.onUserInteraction,

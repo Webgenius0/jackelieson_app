@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
+import 'package:jackelieson/features/auth/presentation/login_screen.dart';
 
 final class Routes {
   static final Routes _routes = Routes._internal();
@@ -6,17 +9,8 @@ final class Routes {
   static Routes get instance => _routes;
 
   static const String splashscreen = '/splashscreen';
-  static const String walkthrowscreen = '/walkthrowscreen';
-  static const String homeScreen = '/homeScreen';
-  static const String loginScreen = '/loginScreen';
-  static const String signup = '/signup';
-  static const String helpScreen = '/helpscreen';
-  static const String addReminderWithPictureScreen =
-      '/addReminderWithPictureScreen';
-  static const String addReminderScreen = '/addReminderScreen';
-  static const String homeMainScreen = '/homeMainScreen';
-  static const String profileSettingScreen = '/profileSettingScreen';
-  static const String snoozeSettingScreen = '/profileSettingScreen';
+  static const String createAccountScreen = '/create_account_screen';
+  static const String loginScreen = '/login_screen';
 }
 
 final class RouteGenerator {
@@ -26,12 +20,14 @@ final class RouteGenerator {
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      // case Routes.loginScreen:
-      //   return Platform.isAndroid
-      //       ? _FadedTransitionRoute(
-      //           widget: const ScreenTitle(widget: LoginScreen()),
-      //           settings: settings)
-      //       : CupertinoPageRoute(builder: (context) => const LoginScreen());
+      case Routes.loginScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const ScreenTitle(widget: LoginScreen()),
+                settings: settings)
+            : CupertinoPageRoute(
+                builder: (context) => const LoginScreen(),
+              );
       // case Routes.signup:
       //   return Platform.isAndroid
       //       ? _FadedTransitionRoute(

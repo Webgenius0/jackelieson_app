@@ -72,7 +72,7 @@ void showMaterialDialog(
                   color: AppColors.allPrimaryColor,
                   textStyle: GoogleFonts.montserrat(
                       fontSize: 17.sp,
-                      color: AppColors.cFFFFF,
+                      color: AppColors.cFFFFFF,
                       fontWeight: FontWeight.w700),
                   context: context),
               ExitButton(
@@ -90,7 +90,7 @@ void showMaterialDialog(
                   color: AppColors.allPrimaryColor,
                   textStyle: GoogleFonts.montserrat(
                       fontSize: 17.sp,
-                      color: AppColors.cFFFFF,
+                      color: AppColors.cFFFFFF,
                       fontWeight: FontWeight.w700),
                   context: context),
             ],

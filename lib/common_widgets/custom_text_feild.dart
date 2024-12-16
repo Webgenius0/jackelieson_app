@@ -92,7 +92,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         borderRadius: BorderRadius.circular(
           12.r,
         ),
-        color: AppColors.cFFFFF,
+        color: AppColors.cFFFFFF,
       ),
       child: TextFormField(
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -108,9 +108,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         onChanged: widget.onChanged,
         validator: widget.validator,
         decoration: InputDecoration(
-          // filled: true,
+          filled: true,
           border: InputBorder.none,
-          // fillColor: widget.fillColor,
+          fillColor: widget.fillColor,
           labelText: widget.labelText,
           hintText: widget.hintText,
           // contentPadding: EdgeInsets.symmetric(
