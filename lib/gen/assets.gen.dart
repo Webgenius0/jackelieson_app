@@ -12,310 +12,180 @@ import 'package:flutter/widgets.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
-  /// File path: assets/icons/3days.svg
-  String get a3days => 'assets/icons/3days.svg';
+  /// File path: assets/icons/art_and_craft_icon.svg
+  String get artAndCraftIcon => 'assets/icons/art_and_craft_icon.svg';
 
-  /// File path: assets/icons/60days.svg
-  String get a60days => 'assets/icons/60days.svg';
+  /// File path: assets/icons/backup.svg
+  String get backup => 'assets/icons/backup.svg';
 
-  /// File path: assets/icons/6month.svg
-  String get a6month => 'assets/icons/6month.svg';
+  /// File path: assets/icons/calender.svg
+  String get calender => 'assets/icons/calender.svg';
 
-  /// File path: assets/icons/Bookmark.svg
-  String get bookmark => 'assets/icons/Bookmark.svg';
+  /// File path: assets/icons/camera.svg
+  String get camera => 'assets/icons/camera.svg';
 
-  /// File path: assets/icons/Chat.svg
-  String get chat => 'assets/icons/Chat.svg';
+  /// File path: assets/icons/close_circle.svg
+  String get closeCircle => 'assets/icons/close_circle.svg';
 
-  /// File path: assets/icons/Edit Square.svg
-  String get editSquare => 'assets/icons/Edit Square.svg';
+  /// File path: assets/icons/daily_view_icon.svg
+  String get dailyViewIcon => 'assets/icons/daily_view_icon.svg';
 
-  /// File path: assets/icons/Home.svg
-  String get home => 'assets/icons/Home.svg';
+  /// File path: assets/icons/day_view.svg
+  String get dayView => 'assets/icons/day_view.svg';
 
-  /// File path: assets/icons/HomeFill.svg
-  String get homeFill => 'assets/icons/HomeFill.svg';
-
-  /// File path: assets/icons/Lock.svg
-  String get lock => 'assets/icons/Lock.svg';
-
-  /// File path: assets/icons/Message.svg
-  String get message => 'assets/icons/Message.svg';
-
-  /// File path: assets/icons/Notification.svg
-  String get notification => 'assets/icons/Notification.svg';
-
-  /// File path: assets/icons/Profile.svg
-  String get profile => 'assets/icons/Profile.svg';
-
-  /// File path: assets/icons/Search.svg
-  String get search => 'assets/icons/Search.svg';
-
-  /// File path: assets/icons/active_reminder.png
-  AssetGenImage get activeReminderPng =>
-      const AssetGenImage('assets/icons/active_reminder.png');
-
-  /// File path: assets/icons/active_reminder.svg
-  String get activeReminderSvg => 'assets/icons/active_reminder.svg';
-
-  /// File path: assets/icons/apple.svg
-  String get apple => 'assets/icons/apple.svg';
-
-  /// File path: assets/icons/arrow-right.svg
-  String get arrowRight => 'assets/icons/arrow-right.svg';
-
-  /// File path: assets/icons/back-arrow.svg
-  String get backArrow => 'assets/icons/back-arrow.svg';
-
-  /// File path: assets/icons/back_button.svg
-  String get backButton => 'assets/icons/back_button.svg';
-
-  /// File path: assets/icons/blue.svg
-  String get blue => 'assets/icons/blue.svg';
-
-  /// File path: assets/icons/book-saved.svg
-  String get bookSaved => 'assets/icons/book-saved.svg';
-
-  /// File path: assets/icons/bookSavedFill.svg
-  String get bookSavedFill => 'assets/icons/bookSavedFill.svg';
-
-  /// File path: assets/icons/bookSquareFill.svg
-  String get bookSquareFill => 'assets/icons/bookSquareFill.svg';
-
-  /// File path: assets/icons/chevron-down.svg
-  String get chevronDown => 'assets/icons/chevron-down.svg';
-
-  /// File path: assets/icons/clock_white.svg
-  String get clockWhite => 'assets/icons/clock_white.svg';
-
-  /// File path: assets/icons/cogwheel.svg
-  String get cogwheel => 'assets/icons/cogwheel.svg';
-
-  /// File path: assets/icons/cross.svg
-  String get cross => 'assets/icons/cross.svg';
-
-  /// File path: assets/icons/cross_icon.png
-  AssetGenImage get crossIcon =>
-      const AssetGenImage('assets/icons/cross_icon.png');
-
-  /// File path: assets/icons/custom_time.svg
-  String get customTime => 'assets/icons/custom_time.svg';
-
-  /// File path: assets/icons/customer-service (1).svg
-  String get customerService1 => 'assets/icons/customer-service (1).svg';
-
-  /// File path: assets/icons/customer-service.svg
-  String get customerService => 'assets/icons/customer-service.svg';
-
-  /// File path: assets/icons/delete.svg
-  String get delete => 'assets/icons/delete.svg';
-
-  /// File path: assets/icons/editSquareFill.svg
-  String get editSquareFill => 'assets/icons/editSquareFill.svg';
-
-  /// File path: assets/icons/gallery.svg
-  String get gallery => 'assets/icons/gallery.svg';
+  /// File path: assets/icons/diet_icon.svg
+  String get dietIcon => 'assets/icons/diet_icon.svg';
 
   /// File path: assets/icons/google.svg
   String get google => 'assets/icons/google.svg';
 
-  /// File path: assets/icons/grey.svg
-  String get grey => 'assets/icons/grey.svg';
+  /// File path: assets/icons/habit_group.svg
+  String get habitGroup => 'assets/icons/habit_group.svg';
 
-  /// File path: assets/icons/homeFillIcon.svg
-  String get homeFillIcon => 'assets/icons/homeFillIcon.svg';
+  /// File path: assets/icons/habits.svg
+  String get habits => 'assets/icons/habits.svg';
 
-  /// File path: assets/icons/image 1.svg
-  String get image1 => 'assets/icons/image 1.svg';
+  /// File path: assets/icons/info.svg
+  String get info => 'assets/icons/info.svg';
 
-  /// File path: assets/icons/info-circle.svg
-  String get infoCircle => 'assets/icons/info-circle.svg';
+  /// File path: assets/icons/jurnli_icon.svg
+  String get jurnliIcon => 'assets/icons/jurnli_icon.svg';
 
-  /// File path: assets/icons/lavender.svg
-  String get lavender => 'assets/icons/lavender.svg';
+  /// File path: assets/icons/language.svg
+  String get language => 'assets/icons/language.svg';
+
+  /// File path: assets/icons/lock_pass.svg
+  String get lockPass => 'assets/icons/lock_pass.svg';
 
   /// File path: assets/icons/logout.svg
   String get logout => 'assets/icons/logout.svg';
 
-  /// File path: assets/icons/logout_icon.svg
-  String get logoutIcon => 'assets/icons/logout_icon.svg';
+  /// File path: assets/icons/mail.svg
+  String get mail => 'assets/icons/mail.svg';
 
-  /// File path: assets/icons/mdi_logout.png
-  AssetGenImage get mdiLogout =>
-      const AssetGenImage('assets/icons/mdi_logout.png');
+  /// File path: assets/icons/menu.svg
+  String get menu => 'assets/icons/menu.svg';
 
-  /// File path: assets/icons/mobile.svg
-  String get mobile => 'assets/icons/mobile.svg';
+  /// File path: assets/icons/month_view.svg
+  String get monthView => 'assets/icons/month_view.svg';
 
-  /// File path: assets/icons/more-square.svg
-  String get moreSquare => 'assets/icons/more-square.svg';
+  /// File path: assets/icons/music_icon.svg
+  String get musicIcon => 'assets/icons/music_icon.svg';
 
-  /// File path: assets/icons/neon.svg
-  String get neon => 'assets/icons/neon.svg';
+  /// File path: assets/icons/notification.svg
+  String get notification => 'assets/icons/notification.svg';
 
-  /// File path: assets/icons/noun-edit.svg
-  String get nounEdit => 'assets/icons/noun-edit.svg';
+  /// File path: assets/icons/profile.svg
+  String get profile => 'assets/icons/profile.svg';
 
-  /// File path: assets/icons/noun-image-upload.svg
-  String get nounImageUpload => 'assets/icons/noun-image-upload.svg';
+  /// File path: assets/icons/read_book_icon.svg
+  String get readBookIcon => 'assets/icons/read_book_icon.svg';
 
-  /// File path: assets/icons/noun-reminder.svg
-  String get nounReminder => 'assets/icons/noun-reminder.svg';
+  /// File path: assets/icons/schedule_view_icon.svg
+  String get scheduleViewIcon => 'assets/icons/schedule_view_icon.svg';
 
-  /// File path: assets/icons/noun-setting.svg
-  String get nounSetting => 'assets/icons/noun-setting.svg';
+  /// File path: assets/icons/search.svg
+  String get search => 'assets/icons/search.svg';
 
-  /// File path: assets/icons/ocean_blue.svg
-  String get oceanBlue => 'assets/icons/ocean_blue.svg';
+  /// File path: assets/icons/settings.svg
+  String get settings => 'assets/icons/settings.svg';
 
-  /// File path: assets/icons/profileFill.svg
-  String get profileFill => 'assets/icons/profileFill.svg';
+  /// File path: assets/icons/share.svg
+  String get share => 'assets/icons/share.svg';
 
-  /// File path: assets/icons/red.svg
-  String get red => 'assets/icons/red.svg';
+  /// File path: assets/icons/start_calender.svg
+  String get startCalender => 'assets/icons/start_calender.svg';
 
-  /// File path: assets/icons/selectIcon.svg
-  String get selectIcon => 'assets/icons/selectIcon.svg';
+  /// File path: assets/icons/start_group.svg
+  String get startGroup => 'assets/icons/start_group.svg';
 
-  /// File path: assets/icons/selectedColor.svg
-  String get selectedColor => 'assets/icons/selectedColor.svg';
+  /// File path: assets/icons/start_week.svg
+  String get startWeek => 'assets/icons/start_week.svg';
 
-  /// File path: assets/icons/shield-tick.svg
-  String get shieldTick => 'assets/icons/shield-tick.svg';
+  /// File path: assets/icons/synce_calender.svg
+  String get synceCalender => 'assets/icons/synce_calender.svg';
 
-  /// File path: assets/icons/sliderBg.png
-  AssetGenImage get sliderBg =>
-      const AssetGenImage('assets/icons/sliderBg.png');
+  /// File path: assets/icons/tasks.svg
+  String get tasks => 'assets/icons/tasks.svg';
 
-  /// File path: assets/icons/small_clock.svg
-  String get smallClock => 'assets/icons/small_clock.svg';
+  /// File path: assets/icons/theme.svg
+  String get theme => 'assets/icons/theme.svg';
 
-  /// File path: assets/icons/telegram_send.svg
-  String get telegramSend => 'assets/icons/telegram_send.svg';
+  /// File path: assets/icons/user_icon.svg
+  String get userIcon => 'assets/icons/user_icon.svg';
 
-  /// File path: assets/icons/wallet-3.svg
-  String get wallet3 => 'assets/icons/wallet-3.svg';
+  /// File path: assets/icons/vibration.svg
+  String get vibration => 'assets/icons/vibration.svg';
 
-  /// File path: assets/icons/yellow.svg
-  String get yellow => 'assets/icons/yellow.svg';
+  /// File path: assets/icons/weekly_view.svg
+  String get weeklyView => 'assets/icons/weekly_view.svg';
+
+  /// File path: assets/icons/work_out_icon.svg
+  String get workOutIcon => 'assets/icons/work_out_icon.svg';
 
   /// List of all assets
-  List<dynamic> get values => [
-        a3days,
-        a60days,
-        a6month,
-        bookmark,
-        chat,
-        editSquare,
-        home,
-        homeFill,
-        lock,
-        message,
+  List<String> get values => [
+        artAndCraftIcon,
+        backup,
+        calender,
+        camera,
+        closeCircle,
+        dailyViewIcon,
+        dayView,
+        dietIcon,
+        google,
+        habitGroup,
+        habits,
+        info,
+        jurnliIcon,
+        language,
+        lockPass,
+        logout,
+        mail,
+        menu,
+        monthView,
+        musicIcon,
         notification,
         profile,
+        readBookIcon,
+        scheduleViewIcon,
         search,
-        activeReminderPng,
-        activeReminderSvg,
-        apple,
-        arrowRight,
-        backArrow,
-        backButton,
-        blue,
-        bookSaved,
-        bookSavedFill,
-        bookSquareFill,
-        chevronDown,
-        clockWhite,
-        cogwheel,
-        cross,
-        crossIcon,
-        customTime,
-        customerService1,
-        customerService,
-        delete,
-        editSquareFill,
-        gallery,
-        google,
-        grey,
-        homeFillIcon,
-        image1,
-        infoCircle,
-        lavender,
-        logout,
-        logoutIcon,
-        mdiLogout,
-        mobile,
-        moreSquare,
-        neon,
-        nounEdit,
-        nounImageUpload,
-        nounReminder,
-        nounSetting,
-        oceanBlue,
-        profileFill,
-        red,
-        selectIcon,
-        selectedColor,
-        shieldTick,
-        sliderBg,
-        smallClock,
-        telegramSend,
-        wallet3,
-        yellow
+        settings,
+        share,
+        startCalender,
+        startGroup,
+        startWeek,
+        synceCalender,
+        tasks,
+        theme,
+        userIcon,
+        vibration,
+        weeklyView,
+        workOutIcon
       ];
 }
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/Graphic.png
-  AssetGenImage get graphic => const AssetGenImage('assets/images/Graphic.png');
-
-  /// File path: assets/images/bg.png
-  AssetGenImage get bg => const AssetGenImage('assets/images/bg.png');
-
-  /// File path: assets/images/clock_logo.png
-  AssetGenImage get clockLogo =>
-      const AssetGenImage('assets/images/clock_logo.png');
-
-  /// File path: assets/images/cogwheel.png
-  AssetGenImage get cogwheel =>
-      const AssetGenImage('assets/images/cogwheel.png');
-
-  /// File path: assets/images/customer-service.png
-  AssetGenImage get customerService =>
-      const AssetGenImage('assets/images/customer-service.png');
-
-  /// File path: assets/images/image 3.png
-  AssetGenImage get image3 => const AssetGenImage('assets/images/image 3.png');
+  /// File path: assets/images/Successmark.png
+  AssetGenImage get successmark =>
+      const AssetGenImage('assets/images/Successmark.png');
 
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
-  /// File path: assets/images/mobile.png
-  AssetGenImage get mobile => const AssetGenImage('assets/images/mobile.png');
+  /// File path: assets/images/splash_bg.png
+  AssetGenImage get splashBg =>
+      const AssetGenImage('assets/images/splash_bg.png');
 
-  /// File path: assets/images/profile_pic.png
-  AssetGenImage get profilePic =>
-      const AssetGenImage('assets/images/profile_pic.png');
-
-  /// File path: assets/images/small_clock.png
-  AssetGenImage get smallClock =>
-      const AssetGenImage('assets/images/small_clock.png');
+  /// File path: assets/images/upload_profile_pic.png
+  AssetGenImage get uploadProfilePic =>
+      const AssetGenImage('assets/images/upload_profile_pic.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [
-        graphic,
-        bg,
-        clockLogo,
-        cogwheel,
-        customerService,
-        image3,
-        logo,
-        mobile,
-        profilePic,
-        smallClock
-      ];
+  List<AssetGenImage> get values =>
+      [successmark, logo, splashBg, uploadProfilePic];
 }
 
 class $AssetsLottieGen {

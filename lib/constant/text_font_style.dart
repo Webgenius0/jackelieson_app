@@ -6,8 +6,40 @@ import 'package:jackelieson/gen/colors.gen.dart';
 class TextFontStyle {
   TextFontStyle._();
 
-  static final text20whiteSans = GoogleFonts.urbanist(
-      color: AppColors.cFFFFF, fontSize: 20.sp, fontWeight: FontWeight.w500);
+
+  ///=========== jackelieson ===============///
+
+  static final headline12w300cFEFFFFStyleRoboto = GoogleFonts.roboto(
+    color: AppColors.cFFFFFF,
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w300,
+  );
+  static final headline14w400cFEFFFFStyleRoboto = GoogleFonts.roboto(
+    color: AppColors.cFFFFFF,
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w400,
+  );
+  static final headline16w500cFEFFFFStyleRoboto = GoogleFonts.roboto(
+    color: AppColors.cFFFFFF,
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w500,
+  );
+  static final headline18w600cFEFFFFStyleRoboto = GoogleFonts.roboto(
+    color: AppColors.cFFFFFF,
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w600,
+  );
+  static final headline20w700cFEFFFFStyleRoboto = GoogleFonts.roboto(
+    color: AppColors.cFFFFFF,
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w700,
+  );
+  static final headline22w800cFEFFFFStyleRoboto = GoogleFonts.roboto(
+    color: AppColors.cFFFFFF,
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w800,
+  );
+
 
   static final text1500000B66w600 = GoogleFonts.urbanist(
       color: AppColors.deepBlack, fontSize: 15.sp, fontWeight: FontWeight.w700);

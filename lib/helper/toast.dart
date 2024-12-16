@@ -13,7 +13,7 @@ final class ToastUtil {
 
   static void showShortToast(String message) {
     Fluttertoast.showToast(
-      textColor: AppColors.cFFFFF,
+      textColor: AppColors.cFFFFFF,
       msg: message,
       toastLength: Toast.LENGTH_SHORT,
     );

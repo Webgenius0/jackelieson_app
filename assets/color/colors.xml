@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <colors>
-    <color name="cFFFFF">#FFFFFFFF</color>
-    <color name="allPrimaryColor">#503559</color>
+
+    <!--jacklieson-->
+    
+    <color name="allPrimaryColor">#FF0070F0</color>
+    <color name="scaffoldColor">#FFFFFFFF</color>
+    <color name="c000000">#FF000000</color>
+    <color name="c222222">#FF222222</color>
+    <color name="cFFFFFF">#FFFFFFFF</color>
+    <color name="c555555">#FF555555</color>
+    <color name="cF7F7F7">#FFF7F7F7</color>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <!--ol color-->
+    
+   
     <color name="deepBlack">#6600000B</color>
     <color name="c4D4D4D">#4D4D4D</color>
     <color name="c503559">#503559</color>
