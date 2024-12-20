@@ -11,22 +11,22 @@ import 'package:jackelieson/helper/ui_helpers.dart';
 import 'package:jackelieson/networks/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  final TextEditingController _newPssController = TextEditingController();
+  final TextEditingController _confirmPassController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
+    _newPssController.dispose();
+    _confirmPassController.dispose();
     super.dispose();
   }
 
@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Login',
+                      'Create New Password',
                       style: TextFontStyle.headline18w600cFEFFFFStyleRoboto
                           .copyWith(
                         fontSize: 24.sp,
@@ -57,16 +57,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     Text(
-                      'Login to get started',
+                      'Create a new Password to access your account',
                       style: TextFontStyle.headline14w400cFEFFFFStyleRoboto
                           .copyWith(
                         fontSize: 14.sp,
                         color: AppColors.c555555,
                       ),
                     ),
-                    UIHelper.verticalSpace(50.h),
+                    UIHelper.verticalSpace(70.h),
                     Text(
-                      'Email Address',
+                      'New Password',
                       style: TextFontStyle.headline14w400cFEFFFFStyleRoboto
                           .copyWith(
                         fontSize: 14.sp,
@@ -75,47 +75,33 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     UIHelper.verticalSpace(8.h),
                     CustomTextFormField(
-                      controller: _emailController,
+                      controller: _newPssController,
                       isPrefixIcon: true,
+                      obscureText: provider.isObsecure,
                       fillColor: AppColors.cF7F7F7,
-                      prefixImage: Assets.icons.mail,
-                      hintText: 'Enter Email',
+                      prefixImage: Assets.icons.lockPass,
+                      suffixIcon: provider.isObsecure
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      onSuffixIconTap: () {
+                        provider.toggleObsecure();
+                        print('object');
+                      },
+                      hintText: 'Enter New password',
                       borderRadius: 4.r,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Email is required';
+                          return 'Password is required';
                         }
-                        String pattern =
-                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
-                        RegExp regex = RegExp(pattern);
-                        if (!regex.hasMatch(value)) {
-                          return 'Enter a valid email';
+                        if (value.length < 6) {
+                          return 'Password must be at least 6 characters';
                         }
                         return null;
                       },
                     ),
-                    UIHelper.verticalSpace(8.h),
-                    GestureDetector(
-                      onTap: () {
-                        NavigationService.navigateTo(
-                          Routes.forgotPasswordScreen,
-                        );
-                      },
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          'Forgot Password?',
-                          style: TextFontStyle.headline14w400cFEFFFFStyleRoboto
-                              .copyWith(
-                            fontSize: 14.sp,
-                            color: AppColors.allPrimaryColor,
-                          ),
-                        ),
-                      ),
-                    ),
                     UIHelper.verticalSpace(12.h),
                     Text(
-                      'Password',
+                      'Confirm Password',
                       style: TextFontStyle.headline14w400cFEFFFFStyleRoboto
                           .copyWith(
                         fontSize: 14.sp,
@@ -124,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     UIHelper.verticalSpace(8.h),
                     CustomTextFormField(
-                      controller: _passwordController,
+                      controller: _confirmPassController,
                       contentPadding: EdgeInsets.symmetric(
                         horizontal: 8.w,
                         vertical: 8.h,
@@ -133,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       obscureText: provider.isObsecure,
                       fillColor: AppColors.cF7F7F7,
                       prefixImage: Assets.icons.lockPass,
-                      hintText: 'Enter Password',
+                      hintText: 'Enter Confirm Password',
                       isBorder: false,
                       suffixIcon: provider.isObsecure
                           ? Icons.visibility
@@ -153,37 +139,22 @@ class _LoginScreenState extends State<LoginScreen> {
                         return null;
                       },
                     ),
-                    UIHelper.verticalSpace(70.h),
+                    UIHelper.verticalSpace(80.h),
                     AppCustomButtom(
-                      btnName: 'Log in',
+                      btnName: 'Cnange Password',
                       borderRadius: 10.r,
                       isBorder: false,
                       borderColor: AppColors.allPrimaryColor,
                       fontSize: 16,
                       fontWeight: FontWeight.w900,
                       textColor: AppColors.cFFFFFF,
-                      onTap: () async {
-                        if (_formKey.currentState!.validate()) {}
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          NavigationService.navigateTo(
+                            Routes.passwordChangeSuccessScreen,
+                          );
+                        }
                       },
-                    ),
-                    UIHelper.verticalSpace(20.h),
-                    GestureDetector(
-                      onTap: () async {
-                        NavigationService.navigateTo(
-                          Routes.createAccountScreen,
-                        );
-                      },
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          'Create Account',
-                          style: TextFontStyle.headline14w400cFEFFFFStyleRoboto
-                              .copyWith(
-                            fontSize: 18.sp,
-                            color: AppColors.allPrimaryColor,
-                          ),
-                        ),
-                      ),
                     ),
                   ],
                 );

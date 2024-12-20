@@ -109,6 +109,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         validator: widget.validator,
         decoration: InputDecoration(
           filled: true,
+
           border: InputBorder.none,
           fillColor: widget.fillColor,
           labelText: widget.labelText,
@@ -120,13 +121,15 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
           contentPadding: widget.contentPadding ??
               EdgeInsets.symmetric(vertical: 12.h, horizontal: 5),
-          hintStyle: widget.isPrefixIcon == false
-              ? TextFontStyle.text14503559w400
-                  .copyWith(color: AppColors.c4D4D4D)
+          hintStyle: widget.isPrefixIcon == true
+              ? TextFontStyle.text14503559w400.copyWith(
+                  color: AppColors.cA9A9A9,
+                  fontSize: 12.sp,
+                )
               : TextFontStyle.text14503559w400,
           prefixIcon: widget.isPrefixIcon && widget.prefixImage != null
               ? Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(10.r),
                   child: SvgPicture.asset(
                     widget.prefixImage ?? "",
                     height: 10.h,
@@ -141,17 +144,15 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                     padding: EdgeInsets.only(right: 16.w),
                     child: Icon(
                       widget.suffixIcon,
-                      color: _isFocused
-                          ? AppColors.allPrimaryColor
-                          : AppColors.c4D4D4D,
+                      color: _isFocused ? AppColors.c4D4D4D : AppColors.c4D4D4D,
                     ),
                   ),
                 )
               : null,
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(widget.borderRadius),
-            borderSide: const BorderSide(color: Colors.grey),
-          ),
+          // focusedBorder: OutlineInputBorder(
+          //   borderRadius: BorderRadius.circular(widget.borderRadius),
+          //   borderSide: const BorderSide(color: Colors.grey),
+          // ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(
               widget.borderRadius,
