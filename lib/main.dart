@@ -1,5 +1,7 @@
 import 'package:auto_animated/auto_animated.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -24,7 +26,15 @@ void main() async {
   // await Firebase.initializeApp();
   // FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   // LocalNotificationService.initialize();
-  runApp(const MyApp());
+
+  runApp(
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => MyApp(),
+    ),
+  );
+
+  // runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

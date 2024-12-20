@@ -1,7 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:jackelieson/features/auth/presentation/choose_habits_screen.dart';
+import 'package:jackelieson/features/auth/presentation/create_account_screen.dart';
+import 'package:jackelieson/features/auth/presentation/forgot_password_screen.dart';
 import 'package:jackelieson/features/auth/presentation/login_screen.dart';
+import 'package:jackelieson/features/auth/presentation/password_change_success_screen.dart';
+import 'package:jackelieson/features/auth/presentation/upload_profile_pic_screen.dart';
+import 'package:jackelieson/features/auth/presentation/verification_screen.dart';
 
 final class Routes {
   static final Routes _routes = Routes._internal();
@@ -11,6 +17,12 @@ final class Routes {
   static const String splashscreen = '/splashscreen';
   static const String createAccountScreen = '/create_account_screen';
   static const String loginScreen = '/login_screen';
+  static const String forgotPasswordScreen = '/forgot_password_screen';
+  static const String passwordChangeSuccessScreen =
+      '/password_change_success_screen';
+  static const String verificationScreen = '/verification_screen';
+  static const String uploadProfilePicScreen = '/upload_profile_pic_screen';
+  static const String chooseHabitsScreen = '/choose_habits_screen';
 }
 
 final class RouteGenerator {
@@ -28,50 +40,63 @@ final class RouteGenerator {
             : CupertinoPageRoute(
                 builder: (context) => const LoginScreen(),
               );
-      // case Routes.signup:
-      //   return Platform.isAndroid
-      //       ? _FadedTransitionRoute(
-      //           widget: const ScreenTitle(widget: SignupScreen()),
-      //           settings: settings)
-      //       : CupertinoPageRoute(builder: (context) => const SignupScreen());
-
-      // // case Routes.splashscreen:
-      // //   return Platform.isAndroid
-      // //       ? _FadedTransitionRoute(
-      // //           widget: const ScreenTitle(widget: SplashScreen()),
-      // //           settings: settings)
-      // //       : CupertinoPageRoute(builder: (context) => const SplashScreen());
-
-      // case Routes.homeScreen:
-      //   return Platform.isAndroid
-      //       ? _FadedTransitionRoute(
-      //           widget: const ScreenTitle(widget: HomeScreen()),
-      //           settings: settings)
-      //       : CupertinoPageRoute(builder: (context) => const HomeScreen());
-
-      // case Routes.addReminderWithPictureScreen:
-      //   return Platform.isAndroid
-      //       ? _FadedTransitionRoute(
-      //           widget: const ScreenTitle(widget: ReminderWithPicture()),
-      //           settings: settings)
-      //       : CupertinoPageRoute(
-      //           builder: (context) => const ReminderWithPicture());
-
-      // case Routes.addReminderScreen:
-      //   return Platform.isAndroid
-      //       ? _FadedTransitionRoute(
-      //           widget: const ScreenTitle(widget: AddReminderScreen()),
-      //           settings: settings)
-      //       : CupertinoPageRoute(
-      //           builder: (context) => const AddReminderScreen());
-
-      // case Routes.helpScreen:
-      //   return Platform.isAndroid
-      //       ? _FadedTransitionRoute(
-      //           widget: const ScreenTitle(widget: HelpSupportScreen()),
-      //           settings: settings)
-      //       : CupertinoPageRoute(
-      //           builder: (context) => const HelpSupportScreen());
+      case Routes.forgotPasswordScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const ScreenTitle(widget: ForgotPasswordScreen()),
+                settings: settings)
+            : CupertinoPageRoute(
+                builder: (context) => const ForgotPasswordScreen(),
+              );
+      case Routes.passwordChangeSuccessScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget:
+                    const ScreenTitle(widget: PasswordChangeSuccessScreen()),
+                settings: settings)
+            : CupertinoPageRoute(
+                builder: (context) => const PasswordChangeSuccessScreen(),
+              );
+      case Routes.createAccountScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const ScreenTitle(
+                  widget: CreateAccountScreen(),
+                ),
+                settings: settings)
+            : CupertinoPageRoute(
+                builder: (context) => const CreateAccountScreen(),
+              );
+      case Routes.verificationScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const ScreenTitle(
+                  widget: VerificationScreen(),
+                ),
+                settings: settings)
+            : CupertinoPageRoute(
+                builder: (context) => const VerificationScreen(),
+              );
+      case Routes.uploadProfilePicScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const ScreenTitle(
+                  widget: UploadProfilePicScreen(),
+                ),
+                settings: settings)
+            : CupertinoPageRoute(
+                builder: (context) => const UploadProfilePicScreen(),
+              );
+      case Routes.chooseHabitsScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const ScreenTitle(
+                  widget: ChooseHabitsScreen(),
+                ),
+                settings: settings)
+            : CupertinoPageRoute(
+                builder: (context) => const ChooseHabitsScreen(),
+              );
 
       default:
         return null;
