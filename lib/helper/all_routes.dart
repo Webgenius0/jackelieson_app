@@ -1,13 +1,15 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
-import 'package:jackelieson/features/auth/presentation/choose_habits_screen.dart';
-import 'package:jackelieson/features/auth/presentation/create_account_screen.dart';
-import 'package:jackelieson/features/auth/presentation/forgot_password_screen.dart';
-import 'package:jackelieson/features/auth/presentation/login_screen.dart';
-import 'package:jackelieson/features/auth/presentation/password_change_success_screen.dart';
-import 'package:jackelieson/features/auth/presentation/upload_profile_pic_screen.dart';
-import 'package:jackelieson/features/auth/presentation/verification_screen.dart';
+import 'package:jackelieson/features/auth/presentation/forgot_pass/forgot_password_screen.dart';
+import 'package:jackelieson/features/auth/presentation/forgot_pass/pass_changed_confarmation.dart';
+import 'package:jackelieson/features/auth/presentation/forgot_pass/password_change_success_screen.dart';
+import 'package:jackelieson/features/auth/presentation/login/login_screen.dart';
+import 'package:jackelieson/features/auth/presentation/others/choose_habits_screen.dart';
+import 'package:jackelieson/features/auth/presentation/others/upload_profile_pic_screen.dart';
+import 'package:jackelieson/features/auth/presentation/signup/create_account_screen.dart';
+import 'package:jackelieson/features/auth/presentation/validation/verification_screen.dart';
+import 'package:jackelieson/navigation_screen.dart';
 
 final class Routes {
   static final Routes _routes = Routes._internal();
@@ -23,6 +25,8 @@ final class Routes {
   static const String verificationScreen = '/verification_screen';
   static const String uploadProfilePicScreen = '/upload_profile_pic_screen';
   static const String chooseHabitsScreen = '/choose_habits_screen';
+  static const String passChangedConfarmation = '/passChangedConfarmation';
+  static const String navigation = '/navigation';
 }
 
 final class RouteGenerator {
@@ -96,6 +100,26 @@ final class RouteGenerator {
                 settings: settings)
             : CupertinoPageRoute(
                 builder: (context) => const ChooseHabitsScreen(),
+              );
+      case Routes.passChangedConfarmation:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const ScreenTitle(
+                  widget: PassChangedConfarmation(),
+                ),
+                settings: settings)
+            : CupertinoPageRoute(
+                builder: (context) => const PassChangedConfarmation(),
+              );
+      case Routes.navigation:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const ScreenTitle(
+                  widget: NavigationScreen(),
+                ),
+                settings: settings)
+            : CupertinoPageRoute(
+                builder: (context) => const NavigationScreen(),
               );
 
       default:

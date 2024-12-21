@@ -12,6 +12,15 @@ import 'package:flutter/widgets.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/Notification.svg
+  String get notification => 'assets/icons/Notification.svg';
+
+  /// File path: assets/icons/Profile.svg
+  String get profile => 'assets/icons/Profile.svg';
+
+  /// File path: assets/icons/Search.svg
+  String get search => 'assets/icons/Search.svg';
+
   /// File path: assets/icons/art_and_craft_icon.svg
   String get artAndCraftIcon => 'assets/icons/art_and_craft_icon.svg';
 
@@ -35,6 +44,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/diet_icon.svg
   String get dietIcon => 'assets/icons/diet_icon.svg';
+
+  /// File path: assets/icons/dropdown_icon.svg
+  String get dropdownIcon => 'assets/icons/dropdown_icon.svg';
 
   /// File path: assets/icons/google.svg
   String get google => 'assets/icons/google.svg';
@@ -72,20 +84,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/music_icon.svg
   String get musicIcon => 'assets/icons/music_icon.svg';
 
-  /// File path: assets/icons/notification.svg
-  String get notification => 'assets/icons/notification.svg';
-
-  /// File path: assets/icons/profile.svg
-  String get profile => 'assets/icons/profile.svg';
+  /// File path: assets/icons/next_tile.svg
+  String get nextTile => 'assets/icons/next_tile.svg';
 
   /// File path: assets/icons/read_book_icon.svg
   String get readBookIcon => 'assets/icons/read_book_icon.svg';
 
   /// File path: assets/icons/schedule_view_icon.svg
   String get scheduleViewIcon => 'assets/icons/schedule_view_icon.svg';
-
-  /// File path: assets/icons/search.svg
-  String get search => 'assets/icons/search.svg';
 
   /// File path: assets/icons/settings.svg
   String get settings => 'assets/icons/settings.svg';
@@ -125,6 +131,9 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<String> get values => [
+        notification,
+        profile,
+        search,
         artAndCraftIcon,
         backup,
         calender,
@@ -133,6 +142,7 @@ class $AssetsIconsGen {
         dailyViewIcon,
         dayView,
         dietIcon,
+        dropdownIcon,
         google,
         habitGroup,
         habits,
@@ -145,11 +155,9 @@ class $AssetsIconsGen {
         menu,
         monthView,
         musicIcon,
-        notification,
-        profile,
+        nextTile,
         readBookIcon,
         scheduleViewIcon,
-        search,
         settings,
         share,
         startCalender,

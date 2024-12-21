@@ -16,12 +16,12 @@ class VerificationScreen extends StatefulWidget {
 }
 
 class _VerificationScreenState extends State<VerificationScreen> {
-  final TextEditingController _verificationCodeController =
-      TextEditingController();
-  String currentText = "";
+  final _verificationCodeController = TextEditingController();
+  // String currentText = "";
   @override
   void dispose() {
-    _verificationCodeController.dispose();
+    // _verificationCodeController.clear(); // Clear the controller
+    // _verificationCodeController.dispose(); // Then dispose of it
     super.dispose();
   }
 
@@ -87,7 +87,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   onChanged: (value) {
                     print(value);
                     setState(() {
-                      currentText = value;
+                      // currentText = value;
                     });
                   },
                   beforeTextPaste: (text) {

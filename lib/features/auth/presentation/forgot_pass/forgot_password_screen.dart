@@ -149,11 +149,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       fontWeight: FontWeight.w900,
                       textColor: AppColors.cFFFFFF,
                       onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          NavigationService.navigateTo(
-                            Routes.passwordChangeSuccessScreen,
-                          );
-                        }
+                        // if (_formKey.currentState!.validate()) {
+
+                        // }
+                        NavigationService.navigateTo(
+                          Routes.loginScreen,
+                        );
                       },
                     ),
                   ],
