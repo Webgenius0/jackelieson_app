@@ -162,19 +162,21 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontSize: 16,
                       fontWeight: FontWeight.w900,
                       textColor: AppColors.cFFFFFF,
-                      onTap: () async {
-                        if (_formKey.currentState!.validate()) {}
+                      onTap: () {
+                        // if (_formKey.currentState!.validate()) {}
+                        NavigationService.navigateTo(Routes.navigation);
                       },
                     ),
                     UIHelper.verticalSpace(20.h),
                     GestureDetector(
-                      onTap: () async {
+                      onTap: () {
                         NavigationService.navigateTo(
                           Routes.createAccountScreen,
                         );
                       },
                       child: Align(
                         alignment: Alignment.center,
+                        
                         child: Text(
                           'Create Account',
                           style: TextFontStyle.headline14w400cFEFFFFStyleRoboto
