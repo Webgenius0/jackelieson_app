@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jackelieson/constant/text_font_style.dart';
+import 'package:jackelieson/features/calendar/presentation/calendar_screen.dart';
 import 'package:jackelieson/features/settings/presentation/setting/settings_screen.dart';
 import 'package:jackelieson/gen/assets.gen.dart';
 import 'package:jackelieson/gen/colors.gen.dart';
@@ -19,9 +20,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   // List<StatefulWidget>
   List bodyItemList = [
-    Center(
-      child: Text("Home"),
-    ),
+    CalendarScreen(),
     Center(
       child: Text("Home"),
     ),
