@@ -7,6 +7,8 @@ import 'package:jackelieson/common_widgets/custom_dropdown.dart';
 import 'package:jackelieson/features/settings/presentation/setting/widgets/setting_list_tile_items.dart';
 import 'package:jackelieson/gen/assets.gen.dart';
 import 'package:jackelieson/gen/colors.gen.dart';
+import 'package:jackelieson/helper/all_routes.dart';
+import 'package:jackelieson/helper/navigation_service.dart';
 
 class SettingUserContainer extends StatelessWidget {
   const SettingUserContainer({super.key});
@@ -42,6 +44,7 @@ class SettingUserContainer extends StatelessWidget {
             iconPath: Assets.icons.profile,
             label: "Profile",
             trailingWidget: SvgPicture.asset(Assets.icons.nextTile),
+            onTap: () => NavigationService.navigateTo(Routes.profileUpdate),
           ),
           DottedLine(
             dashColor: AppColors.cB7B7B7,

@@ -9,6 +9,7 @@ import 'package:jackelieson/features/auth/presentation/others/choose_habits_scre
 import 'package:jackelieson/features/auth/presentation/others/upload_profile_pic_screen.dart';
 import 'package:jackelieson/features/auth/presentation/signup/create_account_screen.dart';
 import 'package:jackelieson/features/auth/presentation/validation/verification_screen.dart';
+import 'package:jackelieson/features/settings/presentation/profile/profile_screen.dart';
 import 'package:jackelieson/navigation_screen.dart';
 
 final class Routes {
@@ -27,6 +28,7 @@ final class Routes {
   static const String chooseHabitsScreen = '/choose_habits_screen';
   static const String passChangedConfarmation = '/passChangedConfarmation';
   static const String navigation = '/navigation';
+  static const String profileUpdate = '/profileUpdate';
 }
 
 final class RouteGenerator {
@@ -36,6 +38,8 @@ final class RouteGenerator {
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
+// ============================= Authentication ========================================
+
       case Routes.loginScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
@@ -44,6 +48,7 @@ final class RouteGenerator {
             : CupertinoPageRoute(
                 builder: (context) => const LoginScreen(),
               );
+
       case Routes.forgotPasswordScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
@@ -52,6 +57,7 @@ final class RouteGenerator {
             : CupertinoPageRoute(
                 builder: (context) => const ForgotPasswordScreen(),
               );
+
       case Routes.passwordChangeSuccessScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
@@ -61,6 +67,7 @@ final class RouteGenerator {
             : CupertinoPageRoute(
                 builder: (context) => const PasswordChangeSuccessScreen(),
               );
+
       case Routes.createAccountScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
@@ -71,6 +78,7 @@ final class RouteGenerator {
             : CupertinoPageRoute(
                 builder: (context) => const CreateAccountScreen(),
               );
+
       case Routes.verificationScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
@@ -81,6 +89,7 @@ final class RouteGenerator {
             : CupertinoPageRoute(
                 builder: (context) => const VerificationScreen(),
               );
+
       case Routes.uploadProfilePicScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
@@ -91,6 +100,7 @@ final class RouteGenerator {
             : CupertinoPageRoute(
                 builder: (context) => const UploadProfilePicScreen(),
               );
+
       case Routes.chooseHabitsScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
@@ -101,6 +111,7 @@ final class RouteGenerator {
             : CupertinoPageRoute(
                 builder: (context) => const ChooseHabitsScreen(),
               );
+
       case Routes.passChangedConfarmation:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
@@ -111,6 +122,7 @@ final class RouteGenerator {
             : CupertinoPageRoute(
                 builder: (context) => const PassChangedConfarmation(),
               );
+      //================================= Navigation Screens ====================================
       case Routes.navigation:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
@@ -120,6 +132,17 @@ final class RouteGenerator {
                 settings: settings)
             : CupertinoPageRoute(
                 builder: (context) => const NavigationScreen(),
+              );
+
+      case Routes.profileUpdate:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const ScreenTitle(
+                  widget: ProfileScreen(),
+                ),
+                settings: settings)
+            : CupertinoPageRoute(
+                builder: (context) => const ProfileScreen(),
               );
 
       default:
