@@ -5,18 +5,22 @@ import 'package:jackelieson/constant/text_font_style.dart';
 import 'package:jackelieson/gen/colors.gen.dart';
 
 class SettingListTileItems extends StatelessWidget {
-  const SettingListTileItems(
-      {super.key,
-      required this.iconPath,
-      required this.label,
-      required this.trailingWidget});
+  const SettingListTileItems({
+    super.key,
+    required this.iconPath,
+    required this.label,
+    required this.trailingWidget,
+    this.onTap,
+  });
 
   final String iconPath;
   final String label;
   final Widget trailingWidget;
+  final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: onTap,
       contentPadding: EdgeInsets.all(8.sp),
       leading: SvgPicture.asset(
         iconPath,

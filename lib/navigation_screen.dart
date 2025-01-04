@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:jackelieson/constant/text_font_style.dart';
 import 'package:jackelieson/features/calendar/presentation/calendar_screen.dart';
 import 'package:jackelieson/features/settings/presentation/setting/settings_screen.dart';
+import 'package:jackelieson/features/tasks/presentation/task_screen.dart';
 import 'package:jackelieson/gen/assets.gen.dart';
 import 'package:jackelieson/gen/colors.gen.dart';
 import 'package:jackelieson/helper/ui_helpers.dart';
@@ -24,9 +25,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
     Center(
       child: Text("Home"),
     ),
-    Center(
-      child: Text("Home"),
-    ),
+    TaskScreen(),
     SettingsScreen(),
   ];
 

@@ -87,6 +87,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/next_tile.svg
   String get nextTile => 'assets/icons/next_tile.svg';
 
+  /// File path: assets/icons/placeholder_img.png
+  AssetGenImage get placeholderImg =>
+      const AssetGenImage('assets/icons/placeholder_img.png');
+
   /// File path: assets/icons/read_book_icon.svg
   String get readBookIcon => 'assets/icons/read_book_icon.svg';
 
@@ -130,7 +134,7 @@ class $AssetsIconsGen {
   String get workOutIcon => 'assets/icons/work_out_icon.svg';
 
   /// List of all assets
-  List<String> get values => [
+  List<dynamic> get values => [
         notification,
         profile,
         search,
@@ -156,6 +160,7 @@ class $AssetsIconsGen {
         monthView,
         musicIcon,
         nextTile,
+        placeholderImg,
         readBookIcon,
         scheduleViewIcon,
         settings,
@@ -183,6 +188,14 @@ class $AssetsImagesGen {
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
+  /// File path: assets/images/placeholder_image.png
+  AssetGenImage get placeholderImage =>
+      const AssetGenImage('assets/images/placeholder_image.png');
+
+  /// File path: assets/images/placeholder_img.png
+  AssetGenImage get placeholderImg =>
+      const AssetGenImage('assets/images/placeholder_img.png');
+
   /// File path: assets/images/splash_bg.png
   AssetGenImage get splashBg =>
       const AssetGenImage('assets/images/splash_bg.png');
@@ -192,8 +205,14 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/upload_profile_pic.png');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [successmark, logo, splashBg, uploadProfilePic];
+  List<AssetGenImage> get values => [
+        successmark,
+        logo,
+        placeholderImage,
+        placeholderImg,
+        splashBg,
+        uploadProfilePic
+      ];
 }
 
 class $AssetsLottieGen {
