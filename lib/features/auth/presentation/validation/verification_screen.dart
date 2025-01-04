@@ -107,6 +107,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                   borderRadius: 8,
+                  bgColor: AppColors.allPrimaryColor,
                 ),
                 UIHelper.verticalSpace(16.h),
                 GestureDetector(

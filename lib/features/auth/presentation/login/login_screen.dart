@@ -159,6 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: 10.r,
                       isBorder: false,
                       borderColor: AppColors.allPrimaryColor,
+                      bgColor: AppColors.allPrimaryColor,
                       fontSize: 16,
                       fontWeight: FontWeight.w900,
                       textColor: AppColors.cFFFFFF,
@@ -176,7 +177,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       child: Align(
                         alignment: Alignment.center,
-                        
                         child: Text(
                           'Create Account',
                           style: TextFontStyle.headline14w400cFEFFFFStyleRoboto

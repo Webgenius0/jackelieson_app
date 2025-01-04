@@ -16,6 +16,7 @@ class AppCustomButtom extends StatelessWidget {
   final bool isBorder;
   final Color? borderColor;
   final Color? textColor;
+  final Color? bgColor;
   const AppCustomButtom({
     super.key,
     required this.btnName,
@@ -30,6 +31,7 @@ class AppCustomButtom extends StatelessWidget {
     this.isBorder = false,
     this.borderColor,
     this.textColor,
+    this.bgColor,
   });
 
   @override
@@ -43,7 +45,7 @@ class AppCustomButtom extends StatelessWidget {
         alignment: Alignment.center,
         width: width ?? double.maxFinite,
         decoration: BoxDecoration(
-          color: isBorder ? Colors.transparent : AppColors.allPrimaryColor,
+          color: bgColor,
           borderRadius: BorderRadius.circular(
             borderRadius ?? 50.r,
           ),

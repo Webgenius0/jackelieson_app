@@ -144,6 +144,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       btnName: 'Cnange Password',
                       borderRadius: 10.r,
                       isBorder: false,
+                      bgColor: AppColors.allPrimaryColor,
                       borderColor: AppColors.allPrimaryColor,
                       fontSize: 16,
                       fontWeight: FontWeight.w900,

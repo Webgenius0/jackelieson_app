@@ -134,6 +134,7 @@ class _ChooseHabitsScreenState extends State<ChooseHabitsScreen> {
                   NavigationService.navigateTo(Routes.loginScreen);
                 },
                 fontWeight: FontWeight.w600,
+                bgColor: AppColors.allPrimaryColor,
               ),
               UIHelper.verticalSpace(10.h),
             ],

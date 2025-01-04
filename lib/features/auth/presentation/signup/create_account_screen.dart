@@ -192,6 +192,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       borderRadius: 8,
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w700,
+                      bgColor: AppColors.allPrimaryColor,
                       textColor: AppColors.cFFFFFF,
                       onTap: () {
                         NavigationService.navigateTo(
