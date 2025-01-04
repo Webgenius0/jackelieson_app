@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jackelieson/common_widgets/custom_network_image.dart';
 import 'package:jackelieson/constant/text_font_style.dart';
 import 'package:jackelieson/gen/colors.gen.dart';
+import 'package:jackelieson/helper/navigation_service.dart';
 import 'package:jackelieson/helper/ui_helpers.dart';
 
 class ProfileHeaderImageWidget extends StatelessWidget {
@@ -59,7 +60,9 @@ class ProfileHeaderImageWidget extends StatelessWidget {
 
   GestureDetector _buildBackButton() {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        NavigationService.goBack;
+      },
       child: Row(
         children: [
           Icon(

@@ -95,6 +95,7 @@ class _UploadProfilePicScreenState extends State<UploadProfilePicScreen> {
                   borderRadius: 8,
                   textColor: AppColors.cFFFFFF,
                   fontWeight: FontWeight.w600,
+                  bgColor: AppColors.allPrimaryColor,
                 )
               ],
             ),

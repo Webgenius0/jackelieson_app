@@ -41,6 +41,26 @@ class TextFontStyle {
   );
 
 
+
+  static final headline16w600c686868StyleRoboto = GoogleFonts.roboto(
+    color: AppColors.c686868,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w600,
+  );
+
+  static final headline14w400c686868StyleRoboto = GoogleFonts.roboto(
+    color: AppColors.c686868,
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w400,
+  );
+
+  static final headline24w600c686868StyleRoboto = GoogleFonts.roboto(
+    color: AppColors.c686868,
+    fontSize: 24.sp,
+    fontWeight: FontWeight.w600,
+  );
+
+
   static final text1500000B66w600 = GoogleFonts.urbanist(
       color: AppColors.deepBlack, fontSize: 15.sp, fontWeight: FontWeight.w700);
 

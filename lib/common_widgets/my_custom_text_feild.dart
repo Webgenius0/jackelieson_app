@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jackelieson/constant/text_font_style.dart';
 import 'package:jackelieson/gen/colors.gen.dart';
-
 
 class MyCustomTextFormField extends StatefulWidget {
   final String? labelText;
@@ -96,6 +96,7 @@ class _MyCustomTextFormFieldState extends State<MyCustomTextFormField> {
         obscureText: widget.obscureText,
         onChanged: widget.onChanged,
         validator: widget.validator,
+
         // style: widget.textStyle ??
         //     TextFontStyle.headline10w400c838484StyleTouche
         //         .copyWith(color: AppColors.c000000),
@@ -104,8 +105,9 @@ class _MyCustomTextFormFieldState extends State<MyCustomTextFormField> {
           fillColor: widget.fillColor,
           labelText: widget.labelText,
           hintText: widget.hintText,
-          // hintStyle: widget.textStyle ??
-          //     TextFontStyle.headline10w400c838484StyleTouche,
+          hintStyle: widget.textStyle ??
+              TextFontStyle.headline16w500cFEFFFFStyleRoboto
+                  .copyWith(color: AppColors.c686868),
           prefixIcon: widget.isPrefixIcon && widget.iconpath != null
               ? Padding(
                   padding: EdgeInsets.only(
@@ -164,7 +166,7 @@ class _MyCustomTextFormFieldState extends State<MyCustomTextFormField> {
               borderRadius: BorderRadius.circular(8.r),
               borderSide: BorderSide(color: AppColors.allPrimaryColor)),
           contentPadding:
-              EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+              EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         ),
       ),
     );

@@ -52,6 +52,7 @@ class _PasswordChangeSuccessScreenState
             AppCustomButtom(
               btnName: 'Okay',
               borderRadius: 8,
+              bgColor: AppColors.allPrimaryColor,
             )
           ],
         ),
