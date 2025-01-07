@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jackelieson/common_widgets/custom_dropdown.dart';
+import 'package:jackelieson/common_widgets/exit_button.dart';
+import 'package:jackelieson/constant/app_constants.dart';
 import 'package:jackelieson/constant/text_font_style.dart';
+import 'package:jackelieson/features/auth/presentation/login/login_screen.dart';
 import 'package:jackelieson/features/settings/presentation/setting/widgets/setting_list_tile_items.dart';
 import 'package:jackelieson/gen/assets.gen.dart';
 import 'package:jackelieson/gen/colors.gen.dart';
+import 'package:jackelieson/helper/di.dart';
 
 class SettingAppContainer extends StatelessWidget {
   const SettingAppContainer({super.key});
@@ -96,6 +101,7 @@ class SettingAppContainer extends StatelessWidget {
               Assets.icons.nextTile,
               color: Colors.red,
             ),
+            onTap: () => showLogoutDialog(context),
           ),
           DottedLine(
             dashColor: AppColors.cB7B7B7,
@@ -104,4 +110,53 @@ class SettingAppContainer extends StatelessWidget {
       ),
     );
   }
+
+}
+
+void showLogoutDialog(
+  BuildContext context,
+) {
+  showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+            title: const Text(
+              "Do you want to Log out?",
+              textAlign: TextAlign.center,
+              // style: TextFontStyle.headline14StyleMontserrat,
+            ),
+            actions: <Widget>[
+              ExitButton(
+                  name: "No",
+                  onCallBack: () {
+                    Navigator.of(context).pop(false);
+                  },
+                  height: 30.sp,
+                  minWidth: .3.sw,
+                  borderRadius: 30.r,
+                  color: AppColors.allPrimaryColor,
+                  textStyle: GoogleFonts.montserrat(
+                      fontSize: 17.sp,
+                      color: AppColors.cFFFFFF,
+                      fontWeight: FontWeight.w700),
+                  context: context),
+              ExitButton(
+                  name: "Yes",
+                  onCallBack: () {
+                    appData.erase();
+                    appData.remove(kKeyAccessToken);
+                    appData.remove(kKeyIsLoggedIn);
+                    appData.write(kKeyIsLoggedIn, false);
+                    Get.offAll(() => const LoginScreen());
+                  },
+                  height: 30.sp,
+                  minWidth: .3.sw,
+                  borderRadius: 30.r,
+                  color: AppColors.allPrimaryColor,
+                  textStyle: GoogleFonts.montserrat(
+                      fontSize: 17.sp,
+                      color: AppColors.cFFFFFF,
+                      fontWeight: FontWeight.w700),
+                  context: context),
+            ],
+          ));
 }
