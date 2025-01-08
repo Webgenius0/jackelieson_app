@@ -16,13 +16,14 @@ class CustomButton extends StatelessWidget {
         height: 58,
         // padding:  EdgeInsets.symmetric(horizontal: 110.w, vertical: 10.h),
         decoration: ShapeDecoration(
-          color: AppColors.cFF503559,
+          color: AppColors.cFFFFFF,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
         ),
         child: Center(
-          child: Text(text, style: TextFontStyle.text16cFF503559W700),
+          child:
+              Text(text, style: TextFontStyle.headline16w600c686868StyleRoboto),
         ),
       ),
     );

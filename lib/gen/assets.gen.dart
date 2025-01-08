@@ -12,6 +12,15 @@ import 'package:flutter/widgets.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/Notification.svg
+  String get notification => 'assets/icons/Notification.svg';
+
+  /// File path: assets/icons/Profile.svg
+  String get profile => 'assets/icons/Profile.svg';
+
+  /// File path: assets/icons/Search.svg
+  String get search => 'assets/icons/Search.svg';
+
   /// File path: assets/icons/art_and_craft_icon.svg
   String get artAndCraftIcon => 'assets/icons/art_and_craft_icon.svg';
 
@@ -32,6 +41,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/day_view.svg
   String get dayView => 'assets/icons/day_view.svg';
+
+  /// File path: assets/icons/detail_info_icon.svg
+  String get detailInfoIcon => 'assets/icons/detail_info_icon.svg';
 
   /// File path: assets/icons/diet_icon.svg
   String get dietIcon => 'assets/icons/diet_icon.svg';
@@ -78,15 +90,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/next_tile.svg
   String get nextTile => 'assets/icons/next_tile.svg';
 
-  /// File path: assets/icons/notification.svg
-  String get notification => 'assets/icons/notification.svg';
-
   /// File path: assets/icons/placeholder_img.png
   AssetGenImage get placeholderImg =>
       const AssetGenImage('assets/icons/placeholder_img.png');
-
-  /// File path: assets/icons/profile.svg
-  String get profile => 'assets/icons/profile.svg';
 
   /// File path: assets/icons/read_book_icon.svg
   String get readBookIcon => 'assets/icons/read_book_icon.svg';
@@ -96,9 +102,6 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/schedule_view_icon.svg
   String get scheduleViewIcon => 'assets/icons/schedule_view_icon.svg';
-
-  /// File path: assets/icons/search.svg
-  String get search => 'assets/icons/search.svg';
 
   /// File path: assets/icons/settings.svg
   String get settings => 'assets/icons/settings.svg';
@@ -138,6 +141,9 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<dynamic> get values => [
+        notification,
+        profile,
+        search,
         artAndCraftIcon,
         backup,
         calender,
@@ -145,6 +151,7 @@ class $AssetsIconsGen {
         closeCircle,
         dailyViewIcon,
         dayView,
+        detailInfoIcon,
         dietIcon,
         dropdownIcon,
         google,
@@ -160,13 +167,10 @@ class $AssetsIconsGen {
         monthView,
         musicIcon,
         nextTile,
-        notification,
         placeholderImg,
-        profile,
         readBookIcon,
         rightMark,
         scheduleViewIcon,
-        search,
         settings,
         share,
         startCalender,
