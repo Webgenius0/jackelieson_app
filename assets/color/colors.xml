@@ -40,7 +40,7 @@
 
      <!--ol color-->
     
-   
+<!--    
     <color name="deepBlack">#6600000B</color>
     <color name="c4D4D4D">#4D4D4D</color>
     <color name="c503559">#503559</color>
@@ -78,6 +78,6 @@
     <color name="cFEF2F2">#FEF2F2</color>
     <color name="cF92623">#F92623</color>
     <color name="c2E2E2E">#2E2E2E</color>
-    <color name="c4D4D4D">#4D4D4D</color>
+    <color name="c4D4D4D">#4D4D4D</color> -->
     
 </colors>

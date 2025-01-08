@@ -10,7 +10,7 @@ import 'package:jackelieson/gen/colors.gen.dart';
 import 'package:jackelieson/helper/all_routes.dart';
 import 'package:jackelieson/helper/navigation_service.dart';
 import 'package:jackelieson/helper/ui_helpers.dart';
-import 'package:jackelieson/networks/provider/auth_provider.dart';
+import 'package:jackelieson/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 class CreateAccountScreen extends StatefulWidget {

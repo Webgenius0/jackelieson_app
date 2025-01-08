@@ -104,6 +104,8 @@ const String kKeyLastName = 'lst_name';
 const String kKeyDeviceID = 'device_id';
 const String kKeyUserID = 'user_id';
 const String kKeyUserEmail = 'user_Email';
+const String kKeyCalenderView = 'calender_view';
+
 // const String kKeyShopID = 'shop_id';
 // const String kKeycategoriesID = 'categoriesId';
 // const String kKeyproductID = 'productId';
