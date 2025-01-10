@@ -99,6 +99,8 @@ class CalendarScreenState extends State<CalendarScreen> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(50.r),
                   child: Image.asset(
+
+                    
                     height: 32.h,
                     width: 32.w,
                     Assets.images.perons.path,
@@ -106,14 +108,20 @@ class CalendarScreenState extends State<CalendarScreen> {
                 ),
                 UIHelper.horizontalSpace(8.w),
                 Container(
-                  alignment: Alignment.center,
-                  width: 135.w,
-                  height: 40.h,
+                  // alignment: Alignment.center,
+                  padding: EdgeInsetsDirectional.symmetric(
+                      horizontal: 20.w, vertical: 10.h),
                   decoration: BoxDecoration(
                     color: AppColors.cFFFFFF,
                     borderRadius: BorderRadius.circular(32.r),
                   ),
-                  child: Text('Oct 7, 2025'),
+                  child: Row(
+                    children: [
+                      Text('Oct 7, 2025'),
+                      UIHelper.horizontalSpaceSmall,
+                      SvgPicture.asset(Assets.icons.dropdownIcon),
+                    ],
+                  ),
                 ),
               ],
             ),
