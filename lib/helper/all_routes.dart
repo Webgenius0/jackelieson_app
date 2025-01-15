@@ -9,6 +9,7 @@ import 'package:jackelieson/features/auth/presentation/others/choose_habits_scre
 import 'package:jackelieson/features/auth/presentation/others/upload_profile_pic_screen.dart';
 import 'package:jackelieson/features/auth/presentation/signup/create_account_screen.dart';
 import 'package:jackelieson/features/auth/presentation/validation/verification_screen.dart';
+import 'package:jackelieson/features/habits/habbit_deatils_screen.dart';
 import 'package:jackelieson/features/settings/presentation/profile/profile_screen.dart';
 import 'package:jackelieson/navigation_screen.dart';
 
@@ -29,6 +30,7 @@ final class Routes {
   static const String passChangedConfarmation = '/passChangedConfarmation';
   static const String navigation = '/navigation';
   static const String profileUpdate = '/profileUpdate';
+  static const String habbitDetails = '/habbitDetails';
 }
 
 final class RouteGenerator {
@@ -143,6 +145,17 @@ final class RouteGenerator {
                 settings: settings)
             : CupertinoPageRoute(
                 builder: (context) => const ProfileScreen(),
+              );
+
+      case Routes.habbitDetails:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const ScreenTitle(
+                  widget: HabbitDeatilsScreen(),
+                ),
+                settings: settings)
+            : CupertinoPageRoute(
+                builder: (context) => const HabbitDeatilsScreen(),
               );
 
       default:

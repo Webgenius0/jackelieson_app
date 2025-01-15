@@ -24,16 +24,16 @@ class _TaskScreenState extends State<TaskScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.cFFFFFF,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.allPrimaryColor,
-        shape: CircleBorder(),
-        child: Icon(
-          Icons.add,
-          size: 40.sp,
-          color: AppColors.cFFFFFF,
-        ),
-        onPressed: () {},
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: AppColors.allPrimaryColor,
+      //   shape: CircleBorder(),
+      //   child: Icon(
+      //     Icons.add,
+      //     size: 40.sp,
+      //     color: AppColors.cFFFFFF,
+      //   ),
+      //   onPressed: () {},
+      // ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 18.w),

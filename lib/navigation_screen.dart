@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jackelieson/constant/text_font_style.dart';
+import 'package:jackelieson/features/calendar/presentation/add_plan.dart';
 import 'package:jackelieson/features/calendar/presentation/calendar_screen.dart';
+import 'package:jackelieson/features/calendar/presentation/widgets/add_event_button.dart';
+import 'package:jackelieson/features/habits/habbit_screen.dart';
 import 'package:jackelieson/features/settings/presentation/setting/settings_screen.dart';
 import 'package:jackelieson/features/tasks/presentation/task_screen.dart';
 import 'package:jackelieson/gen/assets.gen.dart';
@@ -22,9 +25,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   // List<StatefulWidget>
   List bodyItemList = [
     CalendarScreen(),
-    Center(
-      child: Text("Home"),
-    ),
+    HabitTabScreen(),
     TaskScreen(),
     SettingsScreen(),
   ];
@@ -65,7 +66,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                   children: [
                     Container(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                          EdgeInsets.symmetric(horizontal: 14.w, vertical: 4.h),
                       clipBehavior: Clip.antiAlias,
                       decoration: ShapeDecoration(
                         color: selectedIndex == index
@@ -104,6 +105,28 @@ class _NavigationScreenState extends State<NavigationScreen> {
           ),
         ),
       ),
+      floatingActionButton: selectedIndex != 3
+          ? AddEventButton(
+              // onTap: () => _showAddEventDialog(context),
+              onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return Padding(
+                    padding: EdgeInsets.all(16.sp),
+                    child: Dialog(
+                      backgroundColor: AppColors.cFFFFFF,
+                      insetPadding: EdgeInsets.zero,
+                      alignment: Alignment.bottomCenter,
+                      child: AddPlanWidget(
+                        selectedIndex: selectedIndex,
+                      ),
+                    ),
+                  );
+                },
+              );
+            })
+          : SizedBox.shrink(),
     );
   }
 }

@@ -11,15 +11,15 @@ class AddEventButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 64.h,
-        width: 64.w,
+        height: 50.h,
+        width: 50.w,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: AppColors.c1497FF,
         ),
         child: Icon(
           CupertinoIcons.add,
-          size: 45.sp,
+          size: 40.sp,
           color: AppColors.cFFFFFF,
         ),
       ),
