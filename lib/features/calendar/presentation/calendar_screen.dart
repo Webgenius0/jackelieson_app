@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:jackelieson/features/calendar/presentation/add_plan.dart';
-import 'package:jackelieson/features/calendar/presentation/widgets/add_event_button.dart';
+import 'package:intl/intl.dart';
+import 'package:jackelieson/features/calendar/presentation/widgets/calender_header_widget.dart';
+import 'package:jackelieson/features/calendar/presentation/widgets/calender_widget.dart';
 import 'package:jackelieson/gen/assets.gen.dart';
 import 'package:jackelieson/gen/colors.gen.dart';
 import 'package:jackelieson/helper/ui_helpers.dart';
@@ -16,22 +19,77 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class CalendarScreenState extends State<CalendarScreen> {
-  CalendarController calendarController = CalendarController();
+  final CalendarController calendarController = CalendarController();
 
-  final List<Color> _colorCollection = <Color>[];
+  // final List<Color> _colorCollection = <Color>[];
 
   bool is3DayView = false;
-
   CalendarView calenderview = CalendarView.day;
 
-  @override
-  void initState() {
-    super.initState();
-    _initializeEventColor();
+  final menuItems = [
+    {
+      'value': 'Schedule View',
+      'icon': Assets.icons.scheduleViewIcon,
+      'label': 'Schedule View',
+      'view': CalendarView.schedule
+    },
+    {
+      'value': 'Daily View',
+      'icon': Assets.icons.dayView,
+      'label': 'Daily View',
+      'view': CalendarView.day
+    },
+    {
+      'value': '3 Day View',
+      'icon': Assets.icons.dailyViewIcon,
+      'label': '3 Day View',
+      'view': CalendarView.day
+    },
+    {
+      'value': 'Weekly View',
+      'icon': Assets.icons.weeklyView,
+      'label': 'Weekly View',
+      'view': CalendarView.week
+    },
+    {
+      'value': 'Monthly View',
+      'icon': Assets.icons.monthView,
+      'label': 'Monthly View',
+      'view': CalendarView.month
+    },
+  ];
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _initializeEventColors();
+  // }
+
+  String selectedDate = DateFormat("MMMM d, yyyy").format(DateTime.now());
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2026),
+    );
+
+    final DateFormat formatter = DateFormat('MMMM d, yyyy');
+
+    if (pickedDate != null) {
+      setState(
+        () {
+          selectedDate = formatter.format(pickedDate);
+          calendarController.displayDate = pickedDate;
+        },
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    log(selectedDate);
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.cFFFFFF,
@@ -40,212 +98,150 @@ class CalendarScreenState extends State<CalendarScreen> {
           child: Column(
             children: [
               UIHelper.verticalSpace(14.h),
-              _buildHeader(),
+              CalenderHeaderWidget(
+                calenderDate: selectedDate,
+                onCalenderTap: () {
+                  _selectDate(context);
+                },
+                showPopupMenu: _showPopupMenu,
+              ),
               UIHelper.verticalSpace(8.h),
               Expanded(
-                child: SfCalendar(
-                  view: calenderview,
+                child: CalenderWidget(
                   controller: calendarController,
-                  allowDragAndDrop: false,
-                  backgroundColor: AppColors.cFFFFFF,
-                  firstDayOfWeek: 1,
-                  headerHeight: 0,
-                  cellBorderColor: Colors.red,
+                  calenderview: calenderview,
+                  getDataSource: _getDataSource(),
+                  is3Day: is3DayView,
                 ),
               ),
             ],
           ),
         ),
-        floatingActionButton: AddEventButton(
-          onTap: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return Padding(
-                  padding: EdgeInsets.all(16.sp),
-                  child: Dialog(
-                    // elevation: 8,
-                    backgroundColor: AppColors.cFFFFFF,
-                    insetPadding: EdgeInsets.all(0),
-                    alignment: Alignment.bottomCenter,
-                    child: AddPlanWidget(),
-                  ),
-                );
-              },
-            );
-          },
-        ),
+        // floatingActionButton: AddEventButton(
+        //   onTap: () => _showAddEventDialog(context),
+        // ),
       ),
     );
   }
 
-  /// Builds the calendar header
-  Widget _buildHeader() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8.w),
-      width: double.maxFinite,
-      height: 55.h,
-      decoration: BoxDecoration(
-        color: AppColors.cF7F7F7,
-        borderRadius: BorderRadius.circular(8.r),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            flex: 3,
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(50.r),
-                  child: Image.asset(
-
-                    
-                    height: 32.h,
-                    width: 32.w,
-                    Assets.images.perons.path,
-                  ),
-                ),
-                UIHelper.horizontalSpace(8.w),
-                Container(
-                  // alignment: Alignment.center,
-                  padding: EdgeInsetsDirectional.symmetric(
-                      horizontal: 20.w, vertical: 10.h),
-                  decoration: BoxDecoration(
-                    color: AppColors.cFFFFFF,
-                    borderRadius: BorderRadius.circular(32.r),
-                  ),
-                  child: Row(
-                    children: [
-                      Text('Oct 7, 2025'),
-                      UIHelper.horizontalSpaceSmall,
-                      SvgPicture.asset(Assets.icons.dropdownIcon),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SvgPicture.asset(Assets.icons.search),
-                SvgPicture.asset(Assets.icons.startCalender),
-                GestureDetector(
-                  onTap: showPopupMenu,
-                  child: SvgPicture.asset(Assets.icons.menu),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  /// Initializes event colors
-  void _initializeEventColor() {
-    _colorCollection.addAll([
-      const Color(0xFF0F8644),
-      const Color(0xFF8B1FA9),
-      const Color(0xFFD20100),
-      const Color(0xFFFC571D),
-      const Color(0xFF36B37B),
-      const Color(0xFF01A1EF),
-      const Color(0xFF3D4FB5),
-      const Color(0xFFE47C73),
-      const Color(0xFF636363),
-      const Color(0xFF0A8043),
-    ]);
-  }
-
-  void showPopupMenu() async {
+  void _showPopupMenu() async {
     final result = await showMenu(
       color: AppColors.cFFFFFF,
       context: context,
       position: RelativeRect.fromLTRB(200.w, 100.h, 0.h, 0.w),
-      items: [
-        PopupMenuItem<String>(
-          value: 'Schedule View',
+      items: menuItems.map((item) {
+        return PopupMenuItem<String>(
+          value: item['value'].toString(),
           child: ListTile(
-            leading: SvgPicture.asset(Assets.icons.scheduleViewIcon),
-            title: Text('Schedule View'),
+            leading: SvgPicture.asset(item['icon'].toString()),
+            title: Text(item['label'].toString()),
           ),
-        ),
-        PopupMenuItem<String>(
-          value: 'Daily View',
-          child: ListTile(
-            leading: SvgPicture.asset(Assets.icons.dayView),
-            title: Text('Daily View'),
-          ),
-        ),
-        PopupMenuItem<String>(
-          value: '3 Day View',
-          child: ListTile(
-            leading: SvgPicture.asset(Assets.icons.dailyViewIcon),
-            title: Text('3 Day View'),
-          ),
-        ),
-        PopupMenuItem<String>(
-          value: 'Weekly View',
-          child: ListTile(
-            leading: SvgPicture.asset(Assets.icons.weeklyView),
-            title: Text('Weekly View'),
-          ),
-        ),
-        PopupMenuItem<String>(
-          value: 'Monthly View',
-          child: ListTile(
-            leading: SvgPicture.asset(Assets.icons.monthView),
-            title: Text('Monthly View'),
-          ),
-        ),
-        // Add other views...
-      ],
+        );
+      }).toList(),
       elevation: 8.0,
     );
 
-    setState(() {
-      switch (result) {
-        case 'Daily View':
-          calenderview = CalendarView.day;
-          is3DayView = false;
-          calendarController.view = calenderview;
-          break;
-        case 'Schedule View':
-          calenderview = CalendarView.schedule;
-          is3DayView = false;
-          calendarController.view = calenderview;
-          break;
-        case '3 Day View':
-          calenderview = CalendarView.timelineDay;
-          is3DayView = true;
-          calendarController.view = calenderview;
+    if (result != null) {
+      setState(() {
+        final selectedItem =
+            menuItems.firstWhere((item) => item['value'] == result);
+        calenderview = selectedItem['view'] as CalendarView;
+        is3DayView = result == '3 Day View';
+        calendarController.view = calenderview;
 
-          break;
-        case 'Weekly View':
-          calenderview = CalendarView.week;
-          is3DayView = false;
-          calendarController.view = calenderview;
+        // Optionally, persist the selected view
+        // appData.write(kKeyCalenderView, calenderview.toString());
+      });
+    }
+  }
 
-          break;
-        case 'Monthly View':
-          calenderview = CalendarView.month;
-          is3DayView = false;
-          calendarController.view = calenderview;
+  // void _showAddEventDialog(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return Padding(
+  //         padding: EdgeInsets.all(16.sp),
+  //         child: Dialog(
+  //           backgroundColor: AppColors.cFFFFFF,
+  //           insetPadding: EdgeInsets.zero,
+  //           alignment: Alignment.bottomCenter,
+  //           child: AddPlanWidget(),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
-          break;
-      }
+  List<Meeting> _getDataSource() {
+    final List<Meeting> meetings = <Meeting>[];
 
-      // appData.write(kKeyCalenderView, calenderview.toString());
-    });
+    // Add an example meeting
+    final DateTime now = DateTime.now();
+    final DateTime startTime = DateTime(now.year, now.month, now.day, 10, 0);
+    final DateTime endTime = startTime.add(const Duration(hours: 1));
+
+    meetings.add(
+      Meeting(
+        'Team Meeting',
+        startTime,
+        endTime,
+        Colors.blue,
+        false,
+      ),
+    );
+
+    final DateTime anotherStart = DateTime(now.year, now.month, now.day, 14, 0);
+    final DateTime anotherEnd = anotherStart.add(const Duration(hours: 2));
+
+    meetings.add(Meeting(
+      'Client Call',
+      anotherStart,
+      anotherEnd,
+      Colors.green,
+      false,
+    ));
+
+    return meetings;
   }
 }
 
-class DataSource extends CalendarDataSource {
-  DataSource(List<Appointment> source) {
+class Meeting {
+  Meeting(this.eventName, this.from, this.to, this.background, this.isAllDay);
+
+  String eventName;
+  DateTime from;
+  DateTime to;
+  Color background;
+  bool isAllDay;
+}
+
+class MeetingDataSource extends CalendarDataSource {
+  MeetingDataSource(List<Meeting> source) {
     appointments = source;
+  }
+
+  @override
+  DateTime getStartTime(int index) {
+    return appointments![index].from;
+  }
+
+  @override
+  DateTime getEndTime(int index) {
+    return appointments![index].to;
+  }
+
+  @override
+  String getSubject(int index) {
+    return appointments![index].eventName;
+  }
+
+  @override
+  Color getColor(int index) {
+    return appointments![index].background;
+  }
+
+  @override
+  bool isAllDay(int index) {
+    return appointments![index].isAllDay;
   }
 }

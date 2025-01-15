@@ -64,6 +64,8 @@ dependencies:
   dotted_line: ^3.2.3
   syncfusion_flutter_calendar: ^28.1.35
   dropdown_button2: ^2.3.9
+  table_calendar:
+  fl_chart: ^0.69.1
 
 dev_dependencies:
   flutter_test:

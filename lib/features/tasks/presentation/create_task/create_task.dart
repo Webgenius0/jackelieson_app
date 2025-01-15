@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jackelieson/common_widgets/custom_text_field_app_plan.dart';
 import 'package:jackelieson/constant/text_font_style.dart';
-import 'package:jackelieson/gen/assets.gen.dart';
 import 'package:jackelieson/gen/colors.gen.dart';
 import 'package:jackelieson/helper/ui_helpers.dart';
 
-class CreateEventWidget extends StatefulWidget {
-  const CreateEventWidget({super.key});
+class CreateTaskWidget extends StatefulWidget {
+  const CreateTaskWidget({super.key});
 
   @override
-  State<CreateEventWidget> createState() => _CreateEventWidgetState();
+  State<CreateTaskWidget> createState() => _CreateTaskWidgetState();
 }
 
-class _CreateEventWidgetState extends State<CreateEventWidget> {
+class _CreateTaskWidgetState extends State<CreateTaskWidget> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
@@ -25,20 +24,21 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: CustomTextField(
-                  controller: _titleController,
-                  hintText: "Event title ",
-                ),
-              ),
-              UIHelper.horizontalSpaceMedium,
-              Image.asset(
-                Assets.images.aiButtonEventCreate.path,
-                height: 52.h,
-              )
-            ],
+          // Row(
+          //   children: [
+          //     Expanded(
+          //       child: ,
+          //     ),
+          //     UIHelper.horizontalSpaceMedium,
+          //     Image.asset(
+          //       Assets.images.aiButtonEventCreate.path,
+          //       height: 52.h,
+          //     )
+          //   ],
+          // ),
+          CustomTextField(
+            controller: _titleController,
+            hintText: "Task title ",
           ),
           UIHelper.verticalSpace(20.h),
           TextFormField(
@@ -109,7 +109,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
               Expanded(
                 child: TextFormField(
                   controller: _timeController,
-                  readOnly: true, 
+                  readOnly: true,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.watch_later_outlined),
                     hintText: "10:20 am",
@@ -119,7 +119,6 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                     ),
                   ),
                   onTap: () async {
-                   
                     DateTime? pickedDate = await showDatePicker(
                       context: context,
                       initialDate: DateTime.now(),
@@ -128,10 +127,8 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                     );
                     if (pickedDate != null) {
                       setState(() {
-                        _dateController.text = pickedDate
-                            .toLocal()
-                            .toString()
-                            .split(' ')[0]; 
+                        _dateController.text =
+                            pickedDate.toLocal().toString().split(' ')[0];
                       });
                     }
                   },

@@ -51,8 +51,17 @@ class $AssetsIconsGen {
   /// File path: assets/icons/dropdown_icon.svg
   String get dropdownIcon => 'assets/icons/dropdown_icon.svg';
 
+  /// File path: assets/icons/event_calender_icon.svg
+  String get eventCalenderIcon => 'assets/icons/event_calender_icon.svg';
+
+  /// File path: assets/icons/fire_strick_reate.svg
+  String get fireStrickReate => 'assets/icons/fire_strick_reate.svg';
+
   /// File path: assets/icons/google.svg
   String get google => 'assets/icons/google.svg';
+
+  /// File path: assets/icons/habbit_icon.svg
+  String get habbitIcon => 'assets/icons/habbit_icon.svg';
 
   /// File path: assets/icons/habit_group.svg
   String get habitGroup => 'assets/icons/habit_group.svg';
@@ -127,6 +136,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/theme.svg
   String get theme => 'assets/icons/theme.svg';
 
+  /// File path: assets/icons/trophy_icon.svg
+  String get trophyIcon => 'assets/icons/trophy_icon.svg';
+
   /// File path: assets/icons/user_icon.svg
   String get userIcon => 'assets/icons/user_icon.svg';
 
@@ -154,7 +166,10 @@ class $AssetsIconsGen {
         detailInfoIcon,
         dietIcon,
         dropdownIcon,
+        eventCalenderIcon,
+        fireStrickReate,
         google,
+        habbitIcon,
         habitGroup,
         habits,
         info,
@@ -179,6 +194,7 @@ class $AssetsIconsGen {
         synceCalender,
         tasks,
         theme,
+        trophyIcon,
         userIcon,
         vibration,
         weeklyView,
@@ -192,6 +208,13 @@ class $AssetsImagesGen {
   /// File path: assets/images/Successmark.png
   AssetGenImage get successmark =>
       const AssetGenImage('assets/images/Successmark.png');
+
+  /// File path: assets/images/ai_button_event_create.png
+  AssetGenImage get aiButtonEventCreate =>
+      const AssetGenImage('assets/images/ai_button_event_create.png');
+
+  /// File path: assets/images/habits.svg
+  String get habits => 'assets/images/habits.svg';
 
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
@@ -216,8 +239,10 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/upload_profile_pic.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [
+  List<dynamic> get values => [
         successmark,
+        aiButtonEventCreate,
+        habits,
         logo,
         perons,
         placeholderImage,

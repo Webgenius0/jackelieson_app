@@ -9,7 +9,7 @@ import 'package:jackelieson/helper/di.dart';
 import 'package:jackelieson/helper/helpers_method.dart';
 import 'package:jackelieson/helper/navigation_service.dart';
 import 'package:jackelieson/helper/register_provider.dart';
-import 'package:jackelieson/navigation_screen.dart';
+import 'package:jackelieson/loading.dart';
 import 'package:provider/provider.dart';
 
 import 'networks/dio/dio.dart';
@@ -70,8 +70,6 @@ class UtillScreenMobile extends StatelessWidget {
     super.key,
   });
 
-
-
   @override
   Widget build(BuildContext context) {
     // final theme = Provider.of<ThemeProvider>(context);
@@ -100,7 +98,7 @@ class UtillScreenMobile extends StatelessWidget {
             },
             navigatorKey: NavigationService.navigatorKey,
             onGenerateRoute: RouteGenerator.generateRoute,
-            home: NavigationScreen(),
+            home: Loading(),
           ),
         );
       },
