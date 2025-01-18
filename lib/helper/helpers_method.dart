@@ -40,11 +40,12 @@ Future<void> setInitValue() async {
   var deviceInfo = DeviceInfoPlugin();
   if (Platform.isIOS) {
     var iosDeviceInfo = await deviceInfo.iosInfo;
-    // appData.writeIfNull(kKeyDeviceID, iosDeviceInfo.identifierForVendor); // unique ID on iOS
+    appData.writeIfNull(
+        kKeyDeviceID, iosDeviceInfo.identifierForVendor); // unique ID on iOS
   } else if (Platform.isAndroid) {
     var androidDeviceInfo =
         await deviceInfo.androidInfo; // unique ID on Android
-    //appData.writeIfNull(kKeyDeviceID, androidDeviceInfo.id);
+    appData.writeIfNull(kKeyDeviceID, androidDeviceInfo.id);
   }
   await Future.delayed(const Duration(seconds: 3));
 }

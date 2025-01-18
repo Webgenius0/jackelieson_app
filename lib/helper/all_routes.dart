@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:jackelieson/features/auth/presentation/forgot_pass/forgot_pass_email_screen.dart';
 import 'package:jackelieson/features/auth/presentation/forgot_pass/forgot_password_screen.dart';
 import 'package:jackelieson/features/auth/presentation/forgot_pass/pass_changed_confarmation.dart';
 import 'package:jackelieson/features/auth/presentation/forgot_pass/password_change_success_screen.dart';
@@ -22,6 +23,8 @@ final class Routes {
   static const String createAccountScreen = '/create_account_screen';
   static const String loginScreen = '/login_screen';
   static const String forgotPasswordScreen = '/forgot_password_screen';
+  static const String forgotPasswordEmailScreen =
+      '/forgot_password__email_screen';
   static const String passwordChangeSuccessScreen =
       '/password_change_success_screen';
   static const String verificationScreen = '/verification_screen';
@@ -52,12 +55,27 @@ final class RouteGenerator {
               );
 
       case Routes.forgotPasswordScreen:
+        final args = settings.arguments as Map;
         return Platform.isAndroid
             ? _FadedTransitionRoute(
-                widget: const ScreenTitle(widget: ForgotPasswordScreen()),
+                widget: ScreenTitle(
+                    widget: ForgotPasswordScreen(
+                  email: args["email"],
+                )),
                 settings: settings)
             : CupertinoPageRoute(
-                builder: (context) => const ForgotPasswordScreen(),
+                builder: (context) => ForgotPasswordScreen(
+                  email: args["email"],
+                ),
+              );
+
+      case Routes.forgotPasswordEmailScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const ScreenTitle(widget: ForgotPasswordEmailScreen()),
+                settings: settings)
+            : CupertinoPageRoute(
+                builder: (context) => const ForgotPasswordEmailScreen(),
               );
 
       case Routes.passwordChangeSuccessScreen:
@@ -82,14 +100,21 @@ final class RouteGenerator {
               );
 
       case Routes.verificationScreen:
+        final args = settings.arguments as Map;
         return Platform.isAndroid
             ? _FadedTransitionRoute(
-                widget: const ScreenTitle(
-                  widget: VerificationScreen(),
+                widget: ScreenTitle(
+                  widget: VerificationScreen(
+                    email: args["email"],
+                    isSignup: args["isSignup"],
+                  ),
                 ),
                 settings: settings)
             : CupertinoPageRoute(
-                builder: (context) => const VerificationScreen(),
+                builder: (context) => VerificationScreen(
+                  email: args["email"],
+                  isSignup: args["isSignup"],
+                ),
               );
 
       case Routes.uploadProfilePicScreen:

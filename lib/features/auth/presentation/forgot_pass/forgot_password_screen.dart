@@ -3,16 +3,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jackelieson/common_widgets/app_custom_buttom.dart';
 import 'package:jackelieson/common_widgets/custom_text_feild.dart';
 import 'package:jackelieson/constant/text_font_style.dart';
+import 'package:jackelieson/features/auth/model/forgot_password_response_model.dart';
 import 'package:jackelieson/gen/assets.gen.dart';
 import 'package:jackelieson/gen/colors.gen.dart';
 import 'package:jackelieson/helper/all_routes.dart';
+import 'package:jackelieson/helper/lodding_helper.dart';
 import 'package:jackelieson/helper/navigation_service.dart';
 import 'package:jackelieson/helper/ui_helpers.dart';
+import 'package:jackelieson/networks/api_acess.dart';
 import 'package:jackelieson/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
-  const ForgotPasswordScreen({super.key});
+  const ForgotPasswordScreen({super.key, required this.email});
+
+  final String email;
 
   @override
   State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
@@ -28,6 +33,26 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     _newPssController.dispose();
     _confirmPassController.dispose();
     super.dispose();
+  }
+
+  _forgotPassSubmit({
+    required BuildContext context,
+    required String email,
+    required String password,
+    required String confirmPass,
+  }) async {
+    await forgotPasswordRxObj
+        .forgotPass(email: email, password: password, confirmPass: confirmPass)
+        .waitingForFuture()
+        .then((response) {
+      ForgotPasswordResponseModel data = response;
+
+      if (data.code == 200) {
+        NavigationService.navigateTo(
+          Routes.loginScreen,
+        );
+      }
+    });
   }
 
   @override
@@ -87,6 +112,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         provider.toggleObsecure();
                         print('object');
                       },
+                      textInputAction: TextInputAction.done,
                       hintText: 'Enter New password',
                       borderRadius: 4.r,
                       validator: (value) {
@@ -121,6 +147,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       prefixImage: Assets.icons.lockPass,
                       hintText: 'Enter Confirm Password',
                       isBorder: false,
+                      textInputAction: TextInputAction.done,
                       suffixIcon: provider.isObsecure
                           ? Icons.visibility
                           : Icons.visibility_off,
@@ -150,12 +177,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       fontWeight: FontWeight.w900,
                       textColor: AppColors.cFFFFFF,
                       onTap: () {
-                        // if (_formKey.currentState!.validate()) {
-
-                        // }
-                        NavigationService.navigateTo(
-                          Routes.loginScreen,
-                        );
+                        if (_formKey.currentState!.validate()) {
+                          _forgotPassSubmit(
+                            context: context,
+                            email: widget.email,
+                            password: _newPssController.text.trim(),
+                            confirmPass: _confirmPassController.text.trim(),
+                          );
+                        }
                       },
                     ),
                   ],

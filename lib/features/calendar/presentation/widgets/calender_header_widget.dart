@@ -17,7 +17,6 @@ class CalenderHeaderWidget extends StatelessWidget {
   final VoidCallback? onCalenderTap;
   final String calenderDate;
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,26 +30,22 @@ class CalenderHeaderWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            flex: 3,
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(50.r),
-                  child: Image.asset(
-                    height: 32.h,
-                    width: 32.w,
-                    Assets.images.perons.path,
-                  ),
+          Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(50.r),
+                child: Image.asset(
+                  height: 32.h,
+                  width: 32.w,
+                  Assets.images.perons.path,
                 ),
-                UIHelper.horizontalSpace(8.w),
-                GestureDetector(
-                    onTap: onCalenderTap, child: _buildDateSelector()),
-              ],
-            ),
+              ),
+              UIHelper.horizontalSpace(8.w),
+              GestureDetector(
+                  onTap: onCalenderTap, child: _buildDateSelector()),
+            ],
           ),
           Expanded(
-            flex: 2,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [

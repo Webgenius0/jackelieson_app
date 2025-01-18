@@ -100,6 +100,7 @@ const String kKeyGerman = 'de';
 const String kKeySpanish = 'es';
 const String kKeyRussian = 'ru';
 const String kKeyFirstName = 'first_name';
+const String kKeyFullName = 'full_name';
 const String kKeyLastName = 'lst_name';
 const String kKeyDeviceID = 'device_id';
 const String kKeyUserID = 'user_id';

@@ -1,31 +1,23 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
-import 'package:jackelieson/constant/app_constants.dart';
-import 'package:jackelieson/features/auth/data/login_rx/login_api.dart';
-import 'package:jackelieson/features/auth/model/login_response_model.dart';
-import 'package:jackelieson/helper/di.dart';
+import 'package:jackelieson/features/auth/data/otp_varify/api.dart';
+import 'package:jackelieson/features/auth/model/otp_verify_response_model.dart';
 import 'package:jackelieson/helper/toast.dart';
 import 'package:jackelieson/networks/rx_base.dart';
 import 'package:rxdart/streams.dart';
 
-import '../../../../networks/dio/dio.dart';
+final class CreateAccountOtpVerifyRx
+    extends RxResponseInt<OtpVerifyResponseModel> {
+  final api = CreateAccountOtpVerifyApi.instance;
 
-final class LoginRx extends RxResponseInt<LoginResponseModel> {
-  final api = LoginApi.instance;
-
-  LoginRx({required super.empty, required super.dataFetcher});
+  CreateAccountOtpVerifyRx({required super.empty, required super.dataFetcher});
   ValueStream get getFileData => dataFetcher.stream;
 
-  Future<LoginResponseModel> login({
+  Future<OtpVerifyResponseModel> otpVerify({
     required String email,
-    required String password,
+    required String otp,
   }) async {
     try {
-      LoginResponseModel data = await api.login(
-        email: email,
-        password: password,
-      );
+      OtpVerifyResponseModel data = await api.otpVerify(email: email, otp: otp);
       return await handleSuccessWithReturn(data);
     } catch (error) {
       return await handleErrorWithReturn(error);
@@ -34,23 +26,17 @@ final class LoginRx extends RxResponseInt<LoginResponseModel> {
 
   @override
   handleSuccessWithReturn(data) async {
-    log('message');
-    LoginResponseModel response = data;
-    String? accessToken = response.data?.token;
-    String? name = response.data?.name;
-    String? email = response.data?.email;
-    await appData.write(kKeyAccessToken, accessToken);
-    await appData.write(kKeyFullName, name);
-    await appData.write(kKeyUserEmail, email);
-    await appData.write(kKeyIsLoggedIn, true);
-    DioSingleton.instance.update(accessToken!);
-    ToastUtil.showShortToast('Login Success ✔');
+    OtpVerifyResponseModel response = data;
+    String? message = response.message;
+
+    ToastUtil.showShortToast('$message ✔');
+
     return response;
   }
 
   @override
   handleErrorWithReturn(error) {
-    LoginResponseModel errorResponse = LoginResponseModel();
+    OtpVerifyResponseModel errorResponse = OtpVerifyResponseModel();
     if (error is DioException) {
       if (error.response != null && error.response!.statusCode == 422) {
         final errorData = error.response!.data;

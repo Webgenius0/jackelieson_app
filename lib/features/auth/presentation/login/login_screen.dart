@@ -1,13 +1,18 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jackelieson/common_widgets/app_custom_buttom.dart';
 import 'package:jackelieson/common_widgets/custom_text_feild.dart';
 import 'package:jackelieson/constant/text_font_style.dart';
+import 'package:jackelieson/features/auth/model/login_response_model.dart';
 import 'package:jackelieson/gen/assets.gen.dart';
 import 'package:jackelieson/gen/colors.gen.dart';
 import 'package:jackelieson/helper/all_routes.dart';
+import 'package:jackelieson/helper/lodding_helper.dart';
 import 'package:jackelieson/helper/navigation_service.dart';
 import 'package:jackelieson/helper/ui_helpers.dart';
+import 'package:jackelieson/networks/api_acess.dart';
 import 'package:jackelieson/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -28,6 +33,24 @@ class _LoginScreenState extends State<LoginScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  _onLogin({required BuildContext context}) async {
+    await loginRxObj
+        .login(
+            email: _emailController.text.trim(),
+            password: _passwordController.text.trim())
+        .waitingForFuture()
+        .then((response) {
+      LoginResponseModel data = response;
+      if (data.code == 200) {
+        NavigationService.navigateTo(
+          Routes.navigation,
+        );
+      }
+
+      log(" =========");
+    });
   }
 
   @override
@@ -98,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     GestureDetector(
                       onTap: () {
                         NavigationService.navigateTo(
-                          Routes.forgotPasswordScreen,
+                          Routes.forgotPasswordEmailScreen,
                         );
                       },
                       child: Align(
@@ -142,6 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         provider.toggleObsecure();
                         print('object');
                       },
+                      textInputAction: TextInputAction.done,
                       borderRadius: 4.r,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -164,8 +188,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontWeight: FontWeight.w900,
                       textColor: AppColors.cFFFFFF,
                       onTap: () {
-                        // if (_formKey.currentState!.validate()) {}
-                        NavigationService.navigateTo(Routes.navigation);
+                        if (_formKey.currentState!.validate()) {
+                          _onLogin(context: context);
+                        }
+                        // NavigationService.navigateTo(Routes.navigation);
                       },
                     ),
                     UIHelper.verticalSpace(20.h),

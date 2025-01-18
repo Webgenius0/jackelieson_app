@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:jackelieson/constant/app_constants.dart';
 import 'package:jackelieson/helper/di.dart';
 import 'package:jackelieson/helper/helpers_method.dart';
+import 'package:jackelieson/navigation_screen.dart';
 import 'package:jackelieson/welcome_screen.dart';
 
 import 'networks/dio/dio.dart';
@@ -53,10 +54,10 @@ class _LoadingState extends State<Loading> {
     if (_isLoading) {
       return const WelcomScreen();
     } else {
-      return const WelcomScreen();
-      // return appData.read(kKeyIsLoggedIn)
-      //     ? const HomeMainScreen()
-      //     : const LoginScreen();
+      // return const WelcomScreen();
+      return appData.read(kKeyIsLoggedIn)
+          ? const NavigationScreen()
+          : const WelcomScreen();
     }
   }
 }
