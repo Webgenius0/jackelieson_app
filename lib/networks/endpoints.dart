@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 // const String url = String.fromEnvironment("BASE_URL");
-const String url = "https://kg5985-express.vercel.app/api/v1";
+const String url = "https://jackelieson.softvencefsd.xyz/api";
 
 final class NetworkConstants {
   NetworkConstants._();
@@ -24,15 +24,13 @@ final class NetworkConstants {
 final class Endpoints {
   Endpoints._();
   //backend_url
-  static String signup() => "/register";
-  static String login() => "/login";
-  static String createReminder() => "/create-reminder";
-  static String homeActive() => "/active-reminders";
-  static String homeSnooze() => "/snooze-list";
-  static String homeComplete() => "/complete-reminders";
-  static String deleteReminder({required dynamic id}) => "/remove-reminder/$id";
-  static String homeCreateSnooze({required dynamic id}) => "/create-snooze/$id";
-  static String helpAndSupport() => "/create-help";
-  // static String createProfile({required dynamic id}) => "/api/profile/$id/";
-  // static String logout() => "/api/logout";
+  static String createAccount() => "/users/register";
+  static String otpVerify() => "/users/register/otp-verify";
+  static String resendOtp() => "/users/register/otp-resend";
+  static String login() => "/users/login";
+  static String forgotPassEmail() => "/users/login/email-verify";
+  static String forgotPassOtp() => "/users/login/otp-verify";
+  static String forgotPassOtpResend() => "/users/login/otp-resend";
+  static String forgotPass() => "/users/login/reset-password";
+  static String logout() => "/users/logout";
 }

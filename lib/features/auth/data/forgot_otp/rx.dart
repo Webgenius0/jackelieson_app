@@ -1,30 +1,27 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:jackelieson/constant/app_constants.dart';
-import 'package:jackelieson/features/auth/data/login_rx/login_api.dart';
-import 'package:jackelieson/features/auth/model/login_response_model.dart';
-import 'package:jackelieson/helper/di.dart';
+import 'package:jackelieson/features/auth/data/forgot_otp/api.dart';
+import 'package:jackelieson/features/auth/model/forgot_pass_otp_response_model.dart';
 import 'package:jackelieson/helper/toast.dart';
 import 'package:jackelieson/networks/rx_base.dart';
 import 'package:rxdart/streams.dart';
 
-import '../../../../networks/dio/dio.dart';
+final class ForgotPasswordOtpRx
+    extends RxResponseInt<ForgotPassOtpResponseModel> {
+  final api = ForgotPasswordOtpApi.instance;
 
-final class LoginRx extends RxResponseInt<LoginResponseModel> {
-  final api = LoginApi.instance;
-
-  LoginRx({required super.empty, required super.dataFetcher});
+  ForgotPasswordOtpRx({required super.empty, required super.dataFetcher});
   ValueStream get getFileData => dataFetcher.stream;
 
-  Future<LoginResponseModel> login({
+  Future<ForgotPassOtpResponseModel> forgotPassOtp({
     required String email,
-    required String password,
+    required String otp,
   }) async {
     try {
-      LoginResponseModel data = await api.login(
+      ForgotPassOtpResponseModel data = await api.forgotPassOtp(
         email: email,
-        password: password,
+        otp: otp,
       );
       return await handleSuccessWithReturn(data);
     } catch (error) {
@@ -35,22 +32,20 @@ final class LoginRx extends RxResponseInt<LoginResponseModel> {
   @override
   handleSuccessWithReturn(data) async {
     log('message');
-    LoginResponseModel response = data;
-    String? accessToken = response.data?.token;
-    String? name = response.data?.name;
-    String? email = response.data?.email;
-    await appData.write(kKeyAccessToken, accessToken);
-    await appData.write(kKeyFullName, name);
-    await appData.write(kKeyUserEmail, email);
-    await appData.write(kKeyIsLoggedIn, true);
-    DioSingleton.instance.update(accessToken!);
-    ToastUtil.showShortToast('Login Success ✔');
+    ForgotPassOtpResponseModel response = data;
+    // String? name = response.data?.name;
+    // String? email = response.data?.email;
+
+    // await appData.write(kKeyFullName, name);
+    // await appData.write(kKeyUserEmail, email);
+    // await appData.write(kKeyIsLoggedIn, true);
+    // ToastUtil.showShortToast('Login Success ✔');
     return response;
   }
 
   @override
   handleErrorWithReturn(error) {
-    LoginResponseModel errorResponse = LoginResponseModel();
+    ForgotPassOtpResponseModel errorResponse = ForgotPassOtpResponseModel();
     if (error is DioException) {
       if (error.response != null && error.response!.statusCode == 422) {
         final errorData = error.response!.data;

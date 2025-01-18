@@ -258,8 +258,11 @@ class $AssetsLottieGen {
   /// File path: assets/lottie/lodding_animation.json
   String get loddingAnimation => 'assets/lottie/lodding_animation.json';
 
+  /// File path: assets/lottie/loding_box_design.lottie
+  String get lodingBoxDesign => 'assets/lottie/loding_box_design.lottie';
+
   /// List of all assets
-  List<String> get values => [loddingAnimation];
+  List<String> get values => [loddingAnimation, lodingBoxDesign];
 }
 
 class Assets {
