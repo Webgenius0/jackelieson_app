@@ -1,14 +1,19 @@
+import 'dart:developer';
+
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:jackelieson/common_widgets/custom_dropdown.dart';
+import 'package:jackelieson/features/settings/model/get_profile_response_model.dart';
 import 'package:jackelieson/features/settings/presentation/setting/widgets/setting_list_tile_items.dart';
 import 'package:jackelieson/gen/assets.gen.dart';
 import 'package:jackelieson/gen/colors.gen.dart';
 import 'package:jackelieson/helper/all_routes.dart';
+import 'package:jackelieson/helper/lodding_helper.dart';
 import 'package:jackelieson/helper/navigation_service.dart';
+import 'package:jackelieson/networks/api_acess.dart';
 
 class SettingUserContainer extends StatelessWidget {
   const SettingUserContainer({super.key});
@@ -44,7 +49,33 @@ class SettingUserContainer extends StatelessWidget {
             iconPath: Assets.icons.profile,
             label: "Profile",
             trailingWidget: SvgPicture.asset(Assets.icons.nextTile),
-            onTap: () => NavigationService.navigateTo(Routes.profileUpdate),
+            onTap: () async {
+              await getProfileRxObj
+                  .getProfile()
+                  .waitingForFuture()
+                  .then((response) {
+                GetProfileResponseModel data = response;
+                log("================ image : ${data.data?.avatar}");
+
+                String? avatar = data.data?.avatar;
+                String? name = data.data?.name;
+                String? email = data.data?.email;
+                String? phone = data.data?.phone;
+
+                if (data.success == true) {
+                  NavigationService.navigateToWithArgs(
+                    Routes.profileUpdate,
+                    {
+                      "name": name,
+                      "email": email,
+                      "avatar": avatar,
+                      "phone": phone,
+                    },
+                  );
+                }
+              });
+              // NavigationService.navigateTo(Routes.profileUpdate);
+            },
           ),
           DottedLine(
             dashColor: AppColors.cB7B7B7,
@@ -67,19 +98,19 @@ class SettingUserContainer extends StatelessWidget {
             dashColor: AppColors.cB7B7B7,
           ),
 
-          SettingListTileItems(
-            iconPath: Assets.icons.theme,
-            label: "Theme",
-            trailingWidget: MyCustomDropdown(
-              height: 40.h,
-              width: 63.w,
-              // selectedValue: 'Eng',
-              hinttext: "Light",
-              horizonPadding: 0,
-              dropDownValue: const ["Light", "Dark"],
-              isImageNull: true,
-            ), //,
-          ),
+          // SettingListTileItems(
+          //   iconPath: Assets.icons.theme,
+          //   label: "Theme",
+          //   trailingWidget: MyCustomDropdown(
+          //     height: 40.h,
+          //     width: 63.w,
+          //     // selectedValue: 'Eng',
+          //     hinttext: "Light",
+          //     horizonPadding: 0,
+          //     dropDownValue: const ["Light", "Dark"],
+          //     isImageNull: true,
+          //   ), //,
+          // ),
           DottedLine(
             dashColor: AppColors.cB7B7B7,
           ),
@@ -144,6 +175,24 @@ class SettingUserContainer extends StatelessWidget {
               dropDownValue: const ["OFF", "ON"],
               isImageNull: true,
             ), //,
+          ),
+          DottedLine(
+            dashColor: AppColors.cB7B7B7,
+          ),
+          SettingListTileItems(
+            iconPath: Assets.icons.changePassword,
+            label: "Change Password",
+            trailingWidget: SvgPicture.asset(Assets.icons.nextTile),
+            onTap: () => NavigationService.navigateTo(Routes.changePassword),
+            // trailingWidget: MyCustomDropdown(
+            //   height: 40.h,
+            //   width: 63.w,
+            //   // selectedValue: 'Eng',
+            //   hinttext: "OFF",
+            //   horizonPadding: 0,
+            //   dropDownValue: const ["OFF", "ON"],
+            //   isImageNull: true,
+            // ), //,
           ),
           DottedLine(
             dashColor: AppColors.cB7B7B7,

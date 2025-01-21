@@ -7,7 +7,9 @@ import 'package:jackelieson/helper/navigation_service.dart';
 import 'package:jackelieson/helper/ui_helpers.dart';
 
 class ProfileHeaderImageWidget extends StatelessWidget {
-  const ProfileHeaderImageWidget({super.key});
+  const ProfileHeaderImageWidget({super.key, this.image});
+
+  final String? image;
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +30,19 @@ class ProfileHeaderImageWidget extends StatelessWidget {
               border: Border.all(color: AppColors.c242760),
               shape: BoxShape.circle,
             ),
-            child: CustomNetworkImageWidget(
-              urls:
-                  "https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg",
-              height: 140.h,
-              width: 140.w,
-            ),
+            child: image == null || image == ""
+                ? ClipOval(
+                    child: Image.network(
+                        fit: BoxFit.cover,
+                        height: 140.h,
+                        width: 140.w,
+                        "https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg"),
+                  )
+                : CustomNetworkImageWidget(
+                    urls: image!,
+                    height: 140.h,
+                    width: 140.w,
+                  ),
           ),
         ),
         _buildSaveButton()
@@ -47,7 +56,7 @@ class ProfileHeaderImageWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         decoration: ShapeDecoration(
-          color: AppColors.c0070F0,
+          color: Colors.transparent,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(32.r),
           ),

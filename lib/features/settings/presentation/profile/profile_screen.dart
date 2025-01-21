@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable, deprecated_member_use
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,6 +10,7 @@ import 'package:jackelieson/common_widgets/app_custom_buttom.dart';
 import 'package:jackelieson/common_widgets/my_custom_text_feild.dart';
 import 'package:jackelieson/constant/text_font_style.dart';
 import 'package:jackelieson/features/settings/presentation/profile/widget/profile_header_image_widget.dart';
+import 'package:jackelieson/features/settings/presentation/setting/edit_profile_screen.dart';
 import 'package:jackelieson/gen/assets.gen.dart';
 import 'package:jackelieson/gen/colors.gen.dart';
 import 'package:jackelieson/helper/navigation_service.dart';
@@ -16,7 +19,12 @@ import 'package:jackelieson/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen({super.key, this.avatar, this.name, this.email, this.phone});
+
+  final String? avatar;
+  final String? name;
+  final String? email;
+  final String? phone;
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -25,14 +33,21 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   @override
   void dispose() {
     _nameController.dispose();
     _emailController.dispose();
-    _passwordController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    _nameController.text = widget.name ?? "null";
+    _emailController.text = widget.email ?? "email null";
+
+    log("image : ${widget.avatar}");
+    super.initState();
   }
 
   @override
@@ -48,10 +63,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    ProfileHeaderImageWidget(),
+                    ProfileHeaderImageWidget(
+                      image: widget.avatar,
+                    ),
                     UIHelper.verticalSpaceSmall,
                     Container(
-                      height: 400.h,
                       width: Get.width,
                       padding: EdgeInsets.symmetric(
                           horizontal: 16.w, vertical: 12.h),
@@ -83,17 +99,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 TextFontStyle.headline16w600c686868StyleRoboto,
                           ),
                           UIHelper.verticalSpace(8.h),
-                          MyCustomTextFormField(
-                            isPrefixIcon: false,
-                            isBorder: true,
-                            borderColor: AppColors.cE7E6E6,
-                            hintText: "Enter Your Name",
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Name is required';
-                              }
-                              return null;
-                            },
+                          AbsorbPointer(
+                            child: MyCustomTextFormField(
+                              controller: _nameController,
+                              // suffixIcon: Icons.edit_note_rounded,
+                              isPrefixIcon: false,
+                              isBorder: true,
+                              borderColor: AppColors.cE7E6E6,
+                              hintText: "Enter Your Name",
+                            ),
                           ),
                           UIHelper.verticalSpaceSmall,
                           Text(
@@ -102,62 +116,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 TextFontStyle.headline16w600c686868StyleRoboto,
                           ),
                           UIHelper.verticalSpaceSmall,
-                          MyCustomTextFormField(
-                            isPrefixIcon: false,
-                            isBorder: true,
-                            borderColor: AppColors.cE7E6E6,
-                            hintText: "Enter Your Email",
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Email is required';
-                              }
-                              String pattern =
-                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
-                              RegExp regex = RegExp(pattern);
-                              if (!regex.hasMatch(value)) {
-                                return 'Enter a valid email';
-                              }
-                              return null;
-                            },
-                          ),
-                          UIHelper.verticalSpaceSmall,
-                          Text(
-                            'Password',
-                            style:
-                                TextFontStyle.headline16w600c686868StyleRoboto,
-                          ),
-                          UIHelper.verticalSpaceSmall,
-                          MyCustomTextFormField(
-                            obscureText: provider.isObsecure,
-                            suffixIcon: provider.isObsecure
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            onSuffixIconTap: () {
-                              provider.toggleObsecure();
-                              print('object');
-                            },
-                            isPrefixIcon: true,
-                            isBorder: true,
-                            borderColor: AppColors.cE7E6E6,
-                            hintText: "Enter password",
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Password is required';
-                              }
-                              if (value.length < 6) {
-                                return 'Password must be at least 6 characters';
-                              }
-                              return null;
-                            },
+                          AbsorbPointer(
+                            child: MyCustomTextFormField(
+                              controller: _emailController,
+                              isPrefixIcon: false,
+                              isBorder: true,
+                              borderColor: AppColors.cE7E6E6,
+                              hintText: "Enter Your Email",
+                            ),
                           ),
                           UIHelper.verticalSpaceMedium,
                           AppCustomButtom(
                             onTap: () {
-                              if (_formKey.currentState!.validate()) {}
+                              // if (_formKey.currentState!.validate()) {}
+                              // NavigationService.navigateTo(Routes.editProfile);
+                              Get.to(() => EditProfileScreen(
+                                    avatar: widget.avatar,
+                                    name: widget.name,
+                                    email: widget.email,
+                                  ));
                             },
                             borderRadius: 8,
                             bgColor: AppColors.allPrimaryColor,
-                            btnName: 'Change Password',
+                            btnName: 'Change Profile',
                             fontWeight: FontWeight.w600,
                             fontSize: 16,
                           )
