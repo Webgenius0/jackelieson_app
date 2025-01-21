@@ -14,8 +14,14 @@ import 'package:jackelieson/features/auth/model/forgot_password_response_model.d
 import 'package:jackelieson/features/auth/model/login_response_model.dart';
 import 'package:jackelieson/features/auth/model/otp_verify_response_model.dart';
 import 'package:jackelieson/features/auth/model/resend_otp_response_model.dart';
+import 'package:jackelieson/features/settings/data/change_pass/rx.dart';
+import 'package:jackelieson/features/settings/data/get_profile/rx.dart';
 import 'package:jackelieson/features/settings/data/logout/rx.dart';
+import 'package:jackelieson/features/settings/data/update_profile/rx.dart';
+import 'package:jackelieson/features/settings/model/change_pass_response_model.dart';
+import 'package:jackelieson/features/settings/model/get_profile_response_model.dart';
 import 'package:jackelieson/features/settings/model/setting_response_model.dart';
+import 'package:jackelieson/features/settings/model/update_profile_response_model.dart';
 import 'package:rxdart/subjects.dart';
 
 LoginRx loginRxObj = LoginRx(
@@ -54,3 +60,15 @@ ForgotPassRx forgotPasswordRxObj = ForgotPassRx(
 LogoutRx logoutRxObj = LogoutRx(
     empty: LogoutResponseModel(),
     dataFetcher: BehaviorSubject<LogoutResponseModel>());
+
+GetProfileRx getProfileRxObj = GetProfileRx(
+    empty: GetProfileResponseModel(),
+    dataFetcher: BehaviorSubject<GetProfileResponseModel>());
+
+UpdateProfileRx updateProfileRxRxObj = UpdateProfileRx(
+    empty: UpdateProfileResponseModel(),
+    dataFetcher: BehaviorSubject<UpdateProfileResponseModel>());
+
+ChangePassRx changePassRxRxObj = ChangePassRx(
+    empty: ChangePassResponseModel(),
+    dataFetcher: BehaviorSubject<ChangePassResponseModel>());

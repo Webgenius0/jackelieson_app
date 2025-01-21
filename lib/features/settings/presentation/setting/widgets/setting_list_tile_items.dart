@@ -24,6 +24,7 @@ class SettingListTileItems extends StatelessWidget {
       contentPadding: EdgeInsets.all(8.sp),
       leading: SvgPicture.asset(
         iconPath,
+        color: AppColors.c686868,
         height: 20.h,
         width: 20.h,
       ),

@@ -33,6 +33,12 @@ class $AssetsIconsGen {
   /// File path: assets/icons/camera.svg
   String get camera => 'assets/icons/camera.svg';
 
+  /// File path: assets/icons/camera_icon_updoad.svg
+  String get cameraIconUpdoad => 'assets/icons/camera_icon_updoad.svg';
+
+  /// File path: assets/icons/change_password.svg
+  String get changePassword => 'assets/icons/change_password.svg';
+
   /// File path: assets/icons/close_circle.svg
   String get closeCircle => 'assets/icons/close_circle.svg';
 
@@ -50,6 +56,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/dropdown_icon.svg
   String get dropdownIcon => 'assets/icons/dropdown_icon.svg';
+
+  /// File path: assets/icons/edit_profile.svg
+  String get editProfile => 'assets/icons/edit_profile.svg';
 
   /// File path: assets/icons/event_calender_icon.svg
   String get eventCalenderIcon => 'assets/icons/event_calender_icon.svg';
@@ -160,12 +169,15 @@ class $AssetsIconsGen {
         backup,
         calender,
         camera,
+        cameraIconUpdoad,
+        changePassword,
         closeCircle,
         dailyViewIcon,
         dayView,
         detailInfoIcon,
         dietIcon,
         dropdownIcon,
+        editProfile,
         eventCalenderIcon,
         fireStrickReate,
         google,

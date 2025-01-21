@@ -2,6 +2,7 @@
 
 // const String url = String.fromEnvironment("BASE_URL");
 const String url = "https://jackelieson.softvencefsd.xyz/api";
+const String imageUrl = "https://jackelieson.softvencefsd.xyz";
 
 final class NetworkConstants {
   NetworkConstants._();
@@ -33,4 +34,7 @@ final class Endpoints {
   static String forgotPassOtpResend() => "/users/login/otp-resend";
   static String forgotPass() => "/users/login/reset-password";
   static String logout() => "/users/logout";
+  static String getProfile() => "/users/data";
+  static String updateProfile() => "/users/data/update";
+  static String changePass() => "/users/change/password";
 }
