@@ -44,9 +44,22 @@ class _LoginScreenState extends State<LoginScreen> {
         .then((response) {
       LoginResponseModel data = response;
       if (data.code == 200) {
-        NavigationService.navigateTo(
-          Routes.navigation,
-        );
+        if (data.data?.avatar == null) {
+          NavigationService.navigateToReplacementWithObject(
+            Routes.uploadProfilePicScreen,
+            {
+              "habbit": data.data?.userHabit ?? false,
+            },
+          );
+        } else if (data.data?.userHabit == false) {
+          NavigationService.navigateTo(
+            Routes.chooseHabitsScreen,
+          );
+        } else {
+          NavigationService.navigateTo(
+            Routes.navigation,
+          );
+        }
       }
 
       log(" =========");

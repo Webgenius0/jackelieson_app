@@ -7,7 +7,17 @@ import 'package:jackelieson/gen/colors.gen.dart';
 import 'package:jackelieson/helper/ui_helpers.dart';
 
 class HabbitDetailsProgressTileWidget extends StatelessWidget {
-  const HabbitDetailsProgressTileWidget({super.key});
+  const HabbitDetailsProgressTileWidget(
+      {super.key,
+      required this.title,
+      required this.icon,
+      required this.ratio,
+      required this.week});
+
+  final String title;
+  final String icon;
+  final String ratio;
+  final String week;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +36,7 @@ class HabbitDetailsProgressTileWidget extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      'Work out',
+                      title ?? 'Work out',
                       style: TextFontStyle.headline16w500cFEFFFFStyleRoboto
                           .copyWith(
                         color: AppColors.c686868,
@@ -59,7 +69,7 @@ class HabbitDetailsProgressTileWidget extends StatelessWidget {
                       AlwaysStoppedAnimation<Color>(AppColors.allPrimaryColor),
                 ),
                 Text(
-                  '25%',
+                  '$ratio%',
                   style: TextFontStyle.headline16w500cFEFFFFStyleRoboto
                       .copyWith(
                           fontSize: 11.sp, color: AppColors.allPrimaryColor),

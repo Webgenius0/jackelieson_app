@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:jackelieson/constant/app_constants.dart';
+import 'package:jackelieson/features/auth/presentation/login/login_screen.dart';
 import 'package:jackelieson/helper/di.dart';
 import 'package:jackelieson/helper/helpers_method.dart';
 import 'package:jackelieson/navigation_screen.dart';
@@ -57,7 +58,7 @@ class _LoadingState extends State<Loading> {
       // return const WelcomScreen();
       return appData.read(kKeyIsLoggedIn)
           ? const NavigationScreen()
-          : const WelcomScreen();
+          : const LoginScreen();
     }
   }
 }

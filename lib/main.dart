@@ -88,11 +88,13 @@ class UtillScreenMobile extends StatelessWidget {
           },
           child: GetMaterialApp(
             showPerformanceOverlay: false,
+
             // theme: ThemeData(
             //   primarySwatch: CustomTheme.kToDark,
             //   useMaterial3: false,
             // ),
             // theme: theme.isDarkMode ? dark : light,
+            theme: ThemeData(),
             debugShowCheckedModeBanner: false,
 
             builder: (context, widget) {

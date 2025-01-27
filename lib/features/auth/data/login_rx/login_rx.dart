@@ -43,6 +43,7 @@ final class LoginRx extends RxResponseInt<LoginResponseModel> {
     await appData.write(kKeyFullName, name);
     await appData.write(kKeyUserEmail, email);
     await appData.write(kKeyIsLoggedIn, true);
+    await appData.write("kkavatar", response.data?.avatar);
     DioSingleton.instance.update(accessToken!);
     ToastUtil.showShortToast('Login Success ✔');
     return response;

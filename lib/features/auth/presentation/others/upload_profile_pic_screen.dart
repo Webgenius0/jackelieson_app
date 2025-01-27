@@ -1,21 +1,33 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:jackelieson/common_widgets/app_custom_buttom.dart';
+import 'package:jackelieson/common_widgets/image_picker.dart';
 import 'package:jackelieson/constant/text_font_style.dart';
 import 'package:jackelieson/gen/assets.gen.dart';
 import 'package:jackelieson/gen/colors.gen.dart';
 import 'package:jackelieson/helper/all_routes.dart';
+import 'package:jackelieson/helper/lodding_helper.dart';
 import 'package:jackelieson/helper/navigation_service.dart';
 import 'package:jackelieson/helper/ui_helpers.dart';
+import 'package:jackelieson/networks/api_acess.dart';
 
 class UploadProfilePicScreen extends StatefulWidget {
-  const UploadProfilePicScreen({super.key});
+  const UploadProfilePicScreen({super.key, required this.isHabbit});
+
+  final bool isHabbit;
 
   @override
   State<UploadProfilePicScreen> createState() => _UploadProfilePicScreenState();
 }
 
 class _UploadProfilePicScreenState extends State<UploadProfilePicScreen> {
+  final _imageFileNotifier = ValueNotifier<XFile?>(null);
+
+  bool isImage = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,19 +41,30 @@ class _UploadProfilePicScreenState extends State<UploadProfilePicScreen> {
             ),
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'Skip',
-                      style: TextFontStyle.headline16w500cFEFFFFStyleRoboto
-                          .copyWith(
-                        fontSize: 16.sp,
-                        color: AppColors.c000000,
+                GestureDetector(
+                  onTap: () {
+                    if (widget.isHabbit) {
+                      NavigationService.navigateToReplacement(
+                          Routes.navigation);
+                    } else {
+                      NavigationService.navigateToReplacement(
+                          Routes.chooseHabitsScreen);
+                    }
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'Skip',
+                        style: TextFontStyle.headline16w500cFEFFFFStyleRoboto
+                            .copyWith(
+                          fontSize: 16.sp,
+                          color: AppColors.c000000,
+                        ),
                       ),
-                    ),
-                    Icon(Icons.arrow_forward_ios),
-                  ],
+                      Icon(Icons.arrow_forward_ios),
+                    ],
+                  ),
                 ),
                 UIHelper.verticalSpace(60.h),
                 Container(
@@ -58,12 +81,28 @@ class _UploadProfilePicScreenState extends State<UploadProfilePicScreen> {
                       borderRadius: BorderRadius.circular(100.r),
                     ),
                   ),
-                  child: Image(
-                    height: 50.h,
-                    width: 50.w,
-                    image: AssetImage(
-                      Assets.images.uploadProfilePic.path,
-                    ),
+                  child: ValueListenableBuilder<XFile?>(
+                    valueListenable: _imageFileNotifier,
+                    builder: (context, imagePath, _) {
+                      isImage = imagePath != null;
+
+                      return ClipOval(
+                        child: imagePath != null
+                            ? Image.file(
+                                File(imagePath.path),
+                                width: 50.w,
+                                height: 50.h,
+                                fit: BoxFit.cover,
+                              )
+                            : Image(
+                                height: 50.h,
+                                width: 50.w,
+                                image: AssetImage(
+                                  Assets.images.uploadProfilePic.path,
+                                ),
+                              ),
+                      );
+                    },
                   ),
                 ),
                 UIHelper.verticalSpace(20.h),
@@ -89,9 +128,24 @@ class _UploadProfilePicScreenState extends State<UploadProfilePicScreen> {
                 UIHelper.verticalSpace(150.h),
                 AppCustomButtom(
                   onTap: () {
-                    NavigationService.navigateTo(Routes.chooseHabitsScreen);
+                    // NavigationService.navigateTo(Routes.chooseHabitsScreen);
+                    if (_imageFileNotifier.value == null) {
+                      showPickImageBottomSheet(context, _imageFileNotifier);
+                      setState(() {});
+                    } else {
+                      setProfileImageRxRxObj
+                          .setProfle(image: _imageFileNotifier.value)
+                          .waitingForFuture();
+                      // if (widget.isHabbit) {
+                      //   NavigationService.navigateToReplacement(
+                      //       Routes.navigation);
+                      // } else {
+                      //   NavigationService.navigateToReplacement(
+                      //       Routes.chooseHabitsScreen);
+                      // }
+                    }
                   },
-                  btnName: 'Set profile pic',
+                  btnName: isImage ? 'Set profile pic' : "continue",
                   borderRadius: 8,
                   textColor: AppColors.cFFFFFF,
                   fontWeight: FontWeight.w600,

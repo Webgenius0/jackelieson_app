@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jackelieson/constant/text_font_style.dart';
@@ -5,7 +7,9 @@ import 'package:jackelieson/gen/colors.gen.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class WorkoutCalendar extends StatefulWidget {
-  const WorkoutCalendar({super.key});
+  const WorkoutCalendar({super.key, required this.dateList});
+
+  final List<DateTime> dateList;
 
   @override
   State<WorkoutCalendar> createState() => _WorkoutCalendarState();
@@ -15,24 +19,17 @@ class _WorkoutCalendarState extends State<WorkoutCalendar> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
-  final List<DateTime> _workoutDays = [
-    DateTime(2025, 1, 1),
-    DateTime(2025, 1, 2),
-    DateTime(2025, 1, 3),
-    DateTime(2025, 1, 4),
-    DateTime(2025, 1, 5),
-    DateTime(2025, 1, 6),
-  ];
-
   bool _isWorkoutDay(DateTime day) {
-    return _workoutDays.any((workoutDay) =>
+    return widget.dateList.any((workoutDay) =>
         workoutDay.year == day.year &&
         workoutDay.month == day.month &&
         workoutDay.day == day.day);
   }
+  
 
   @override
   Widget build(BuildContext context) {
+    log("List of Dates : ${widget.dateList.toString()}");
     return AbsorbPointer(
       child: TableCalendar(
         headerVisible: false,

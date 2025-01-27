@@ -5,14 +5,17 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:jackelieson/common_widgets/app_custom_buttom.dart';
+import 'package:jackelieson/common_widgets/custom_network_image.dart';
 import 'package:jackelieson/constant/text_font_style.dart';
-import 'package:jackelieson/features/auth/model/choose_model.dart';
+import 'package:jackelieson/features/auth/model/all_habbit_response_model.dart';
 import 'package:jackelieson/gen/colors.gen.dart';
 import 'package:jackelieson/helper/all_routes.dart';
+import 'package:jackelieson/helper/loadding_indicator_circle_widget.dart';
 import 'package:jackelieson/helper/navigation_service.dart';
+import 'package:jackelieson/helper/toast.dart';
 import 'package:jackelieson/helper/ui_helpers.dart';
+import 'package:jackelieson/networks/api_acess.dart';
 
 class ChooseHabitsScreen extends StatefulWidget {
   const ChooseHabitsScreen({super.key});
@@ -24,6 +27,12 @@ class ChooseHabitsScreen extends StatefulWidget {
 class _ChooseHabitsScreenState extends State<ChooseHabitsScreen> {
   List<String> itemList = [];
   final Set<int> selectedIndices = {};
+
+  @override
+  void initState() {
+    allHabbitRxObj.getAllHabbit();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +61,7 @@ class _ChooseHabitsScreenState extends State<ChooseHabitsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              UIHelper.verticalSpace(40.h),
+              UIHelper.verticalSpace(15.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -64,19 +73,24 @@ class _ChooseHabitsScreenState extends State<ChooseHabitsScreen> {
                       color: AppColors.c222222,
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Skip',
-                        style: TextFontStyle.headline16w500cFEFFFFStyleRoboto
-                            .copyWith(
-                          fontSize: 16.sp,
-                          color: AppColors.c000000,
+                  GestureDetector(
+                    onTap: () {
+                      NavigationService.navigateTo(Routes.navigation);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Skip',
+                          style: TextFontStyle.headline16w500cFEFFFFStyleRoboto
+                              .copyWith(
+                            fontSize: 16.sp,
+                            color: AppColors.c000000,
+                          ),
                         ),
-                      ),
-                      Icon(Icons.arrow_forward_ios),
-                    ],
+                        Icon(Icons.arrow_forward_ios),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -89,49 +103,103 @@ class _ChooseHabitsScreenState extends State<ChooseHabitsScreen> {
                 ),
               ),
               UIHelper.verticalSpace(20.h),
-              Expanded(
-                child: GridView.builder(
-                  padding: EdgeInsets.symmetric(horizontal: 2),
-                  itemCount: chooseHabitsList.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 30,
-                    mainAxisSpacing: 30,
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
-                    return ChooseHabitWidgets(
-                      borderColro: selectedIndices.contains(index)
-                          ? AppColors.allPrimaryColor
-                          : Colors.grey.withOpacity(
-                              0.3,
-                            ),
-                      onSelectedColor: selectedIndices.contains(index)
-                          ? AppColors.allPrimaryColor
-                          : Colors.white,
-                      onTap: () {
-                        setState(() {
-                          if (selectedIndices.contains(index)) {
-                            selectedIndices
-                                .remove(index); // Unselect if selected
-                          } else {
-                            selectedIndices.add(index); // Select if unselected
-                          }
-                        });
-                      },
-                      icon: chooseHabitsList[index].icon,
-                      title: chooseHabitsList[index].title,
+              StreamBuilder<AllHabbitResponseModel>(
+                stream: allHabbitRxObj.dataFetcher,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text('An error occurred: ${snapshot.error}',
+                          style: const TextStyle(color: Colors.red)),
                     );
-                  },
-                ),
+                  }
+
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                        child: loadingIndicatorCircle(context: context));
+                  }
+
+                  if (snapshot.hasData) {
+                    log("messageasdfghh================================================================");
+                    if (snapshot.data!.data!.isNotEmpty) {
+                      return Expanded(
+                        child: GridView.builder(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 2, vertical: 10.h),
+                          itemCount: snapshot.data!.data!.isNotEmpty ? 6 : 0,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 30,
+                            mainAxisSpacing: 30,
+                          ),
+                          itemBuilder: (BuildContext context, int index) {
+                            final items = snapshot.data!.data?[index];
+                            return ChooseHabitWidgets(
+                              borderColro: selectedIndices.contains(index)
+                                  ? AppColors.allPrimaryColor
+                                  : Colors.grey.withOpacity(
+                                      0.3,
+                                    ),
+                              onSelectedColor: selectedIndices.contains(index)
+                                  ? AppColors.allPrimaryColor
+                                  : Colors.white,
+                              onTap: () {
+                                setState(() {
+                                  if (selectedIndices.contains(index)) {
+                                    selectedIndices
+                                        .remove(index); // Unselect if selected
+                                  } else {
+                                    if (selectedIndices.length < 3) {
+                                      selectedIndices.add(index);
+                                    } else {
+                                      ToastUtil.showShortToast(
+                                          "Get Premium access");
+                                    }
+                                  }
+                                });
+                              },
+                              icon: items?.imageUrl ?? "",
+                              title: items?.name ?? "",
+                            );
+                          },
+                        ),
+                      );
+                    }
+
+                    return Expanded(
+                      child: Text(
+                        'No Habbit Available1123',
+                        style: TextFontStyle.headline18w600cFEFFFFStyleRoboto
+                            .copyWith(
+                          fontSize: 24.sp,
+                          color: AppColors.c222222,
+                        ),
+                      ),
+                    );
+                  } else {
+                    return Expanded(
+                      child: Text(
+                        'No Habbit Available456',
+                        style: TextFontStyle.headline18w600cFEFFFFStyleRoboto
+                            .copyWith(
+                          fontSize: 24.sp,
+                          color: AppColors.c222222,
+                        ),
+                      ),
+                    );
+                  }
+                },
               ),
               AppCustomButtom(
                 btnName: 'Next',
                 borderRadius: 8,
-                onTap: () {
+                onTap: () async {
                   List<String> selectedItems =
                       selectedIndices.map((index) => itemList[index]).toList();
                   log("Selected Items: $selectedItems");
-                  NavigationService.navigateTo(Routes.loginScreen);
+
+                  // allHabbitRxObj.getAllHabbit();
+                  NavigationService.navigateTo(Routes.navigation);
                 },
                 fontWeight: FontWeight.w600,
                 bgColor: AppColors.allPrimaryColor,
@@ -187,10 +255,16 @@ class ChooseHabitWidgets extends StatelessWidget {
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SvgPicture.asset(icon),
+                // SvgPicture.asset(icon),
+                CustomNetworkImageWidget(
+                  urls: icon,
+                  height: 50.h,
+                  width: 50.h,
+                ),
                 UIHelper.verticalSpace(10.h),
                 Text(
                   title,
+                  textAlign: TextAlign.center,
                   style:
                       TextFontStyle.headline14w400cFEFFFFStyleRoboto.copyWith(
                     fontSize: 16.sp,

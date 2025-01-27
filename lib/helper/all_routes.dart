@@ -10,7 +10,6 @@ import 'package:jackelieson/features/auth/presentation/others/choose_habits_scre
 import 'package:jackelieson/features/auth/presentation/others/upload_profile_pic_screen.dart';
 import 'package:jackelieson/features/auth/presentation/signup/create_account_screen.dart';
 import 'package:jackelieson/features/auth/presentation/validation/verification_screen.dart';
-import 'package:jackelieson/features/habits/habbit_deatils_screen.dart';
 import 'package:jackelieson/features/settings/presentation/profile/profile_screen.dart';
 import 'package:jackelieson/features/settings/presentation/setting/change_password_screen.dart';
 import 'package:jackelieson/features/settings/presentation/setting/edit_profile_screen.dart';
@@ -37,7 +36,7 @@ final class Routes {
   static const String navigation = '/navigation';
   static const String profileUpdate = '/profileUpdate';
   static const String changePassword = '/changePassword';
-  static const String habbitDetails = '/habbitDetails';
+  // static const String habbitDetails = '/habbitDetails';
 }
 
 final class RouteGenerator {
@@ -122,14 +121,19 @@ final class RouteGenerator {
               );
 
       case Routes.uploadProfilePicScreen:
+        final args = settings.arguments as Map;
         return Platform.isAndroid
             ? _FadedTransitionRoute(
-                widget: const ScreenTitle(
-                  widget: UploadProfilePicScreen(),
+                widget: ScreenTitle(
+                  widget: UploadProfilePicScreen(
+                    isHabbit: args["habbit"],
+                  ),
                 ),
                 settings: settings)
             : CupertinoPageRoute(
-                builder: (context) => const UploadProfilePicScreen(),
+                builder: (context) => UploadProfilePicScreen(
+                  isHabbit: args["habbit"],
+                ),
               );
 
       case Routes.chooseHabitsScreen:
@@ -209,16 +213,16 @@ final class RouteGenerator {
                 builder: (context) => const ChangePasswordScreen(),
               );
 
-      case Routes.habbitDetails:
-        return Platform.isAndroid
-            ? _FadedTransitionRoute(
-                widget: const ScreenTitle(
-                  widget: HabbitDeatilsScreen(),
-                ),
-                settings: settings)
-            : CupertinoPageRoute(
-                builder: (context) => const HabbitDeatilsScreen(),
-              );
+      // case Routes.habbitDetails:
+      //   return Platform.isAndroid
+      //       ? _FadedTransitionRoute(
+      //           widget: const ScreenTitle(
+      //             widget: HabbitDeatilsScreen(),
+      //           ),
+      //           settings: settings)
+      //       : CupertinoPageRoute(
+      //           builder: (context) => const HabbitDeatilsScreen(),
+      //         );
 
       default:
         return null;

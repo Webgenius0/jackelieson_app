@@ -1,16 +1,21 @@
 import 'dart:developer';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:jackelieson/constant/text_font_style.dart';
-import 'package:jackelieson/features/habits/widgets/habbit_tile_widget.dart';
+import 'package:jackelieson/features/habits/model/get_habbit_response_model.dart';
+import 'package:jackelieson/features/habits/model/habbit_details_response_model.dart';
+import 'package:jackelieson/features/habits/model/habbit_status_response_model.dart';
+import 'package:jackelieson/features/habits/presentation/habbit_deatils_screen.dart';
+import 'package:jackelieson/features/habits/presentation/widgets/habbit_tile_widget.dart';
 import 'package:jackelieson/gen/assets.gen.dart';
 import 'package:jackelieson/gen/colors.gen.dart';
-import 'package:jackelieson/helper/all_routes.dart';
-import 'package:jackelieson/helper/navigation_service.dart';
+import 'package:jackelieson/helper/loadding_indicator_circle_widget.dart';
+import 'package:jackelieson/helper/lodding_helper.dart';
 import 'package:jackelieson/helper/ui_helpers.dart';
+import 'package:jackelieson/networks/api_acess.dart';
 import 'package:jackelieson/provider/habbit_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -32,27 +37,28 @@ class _HabitTabScreenState extends State<HabitTabScreen> {
     super.initState();
     _scrollController = ScrollController();
     _eventController = Provider.of<EventController>(context, listen: false);
-    addEventToController();
+    // addEventToController();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       scrollToSelectedDate();
     });
+    getHabbitRxObj.getAllTask(day: "wed");
   }
 
-  void addEventToController() {
-    var event = CalendarEventData(
-      date: DateTime.now(),
-      title: "Project meeting",
-      event: "Test Event",
-      description: "Today is project meeting.",
-      startTime: DateTime(now.year, now.month, now.day, 9, 30),
-      endTime: DateTime(now.year, now.month, now.day, 11, 30),
-    );
+  // void addEventToController() {
+  //   var event = CalendarEventData(
+  //     date: DateTime.now(),
+  //     title: "Project meeting",
+  //     event: "Test Event",
+  //     description: "Today is project meeting.",
+  //     startTime: DateTime(now.year, now.month, now.day, 9, 30),
+  //     endTime: DateTime(now.year, now.month, now.day, 11, 30),
+  //   );
 
-    _eventController.add(event); // Add the event to the EventController
-    if (kDebugMode) {
-      print("Event added: ${event.title} at ${event.date}");
-    }
-  }
+  //   _eventController.add(event); // Add the event to the EventController
+  //   if (kDebugMode) {
+  //     print("Event added: ${event.title} at ${event.date}");
+  //   }
+  // }
 
   void scrollToSelectedDate() {
     var calendarProvider = Provider.of<Calendar>(context, listen: false);
@@ -140,36 +146,114 @@ class _HabitTabScreenState extends State<HabitTabScreen> {
                 ],
               ),
               UIHelper.verticalSpaceSmall,
-              ListView.separated(
-                separatorBuilder: (context, index) =>
-                    UIHelper.verticalSpaceSmall,
-                itemCount: 4,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return HabbitTileWidget(
-                    onTap: () =>
-                        NavigationService.navigateTo(Routes.habbitDetails),
-                  );
+              StreamBuilder<GetHabbitResponseModel>(
+                stream: getHabbitRxObj.dataFetcher,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text('An error occurred: ${snapshot.error}',
+                          style: const TextStyle(color: Colors.red)),
+                    );
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                        child: loadingIndicatorCircle(context: context));
+                  }
+                  if (snapshot.hasData) {
+                    if (snapshot.data?.data != null) {
+                      return ListView.separated(
+                        separatorBuilder: (context, index) =>
+                            UIHelper.verticalSpaceSmall,
+                        itemCount: snapshot.data?.data?.length ?? 0,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final item = snapshot.data?.data?[index];
+
+                          final day1 = item?.days?.first;
+                          final day2 = item?.days?.last;
+                          log("+++++++++++++${item?.taskStatus?.toLowerCase()} $index");
+                          return HabbitTileWidget(
+                            isStatus:
+                                item?.taskStatus?.toLowerCase() == "incomplete",
+                            icon: item?.imageUrl ?? "",
+                            title: item?.name ?? "",
+                            week: "$day1 - $day2",
+                            streak: item?.streak.toString() ?? "0",
+                            status: item?.taskStatus ?? "",
+                            onTap: () async {
+                              await habbitDetailsRxObj
+                                  .habbitDetails(id: item?.id)
+                                  .waitingForFuture()
+                                  .then((data) async {
+                                HabbitDetailsResponseModel res = data;
+                                if (res.success == true) {
+                                  await Get.to(() => HabbitDeatilsScreen(
+                                        data: res,
+                                      ));
+                                }
+                              });
+                            },
+                            onCancelTap: () async {
+                              await habbitStatusRxObj
+                                  .habbitStatus(status: "cancel", id: item?.id)
+                                  .waitingForFuture()
+                                  .then((res) async {
+                                HabbitStatusResponseModel data = res;
+                                if (data.success == true) {
+                                  await getHabbitRxObj
+                                      .getAllTask(day: "wed")
+                                      .waitingForFuture();
+                                }
+                              });
+                            },
+                            onDoneTap: () async {
+                              await habbitStatusRxObj
+                                  .habbitStatus(
+                                      status: "complete", id: item?.id)
+                                  .waitingForFuture()
+                                  .then((res) async {
+                                HabbitStatusResponseModel data = res;
+                                if (data.success == true) {
+                                  await getHabbitRxObj
+                                      .getAllTask(day: "wed")
+                                      .waitingForFuture();
+                                }
+                              });
+                            },
+                          );
+                        },
+                      );
+                    }
+
+                    return Expanded(
+                      child: Text(
+                        'No Habbit Available1123',
+                        style: TextFontStyle.headline18w600cFEFFFFStyleRoboto
+                            .copyWith(
+                          fontSize: 24.sp,
+                          color: AppColors.c222222,
+                        ),
+                      ),
+                    );
+                  } else {
+                    return Expanded(
+                      child: Text(
+                        'No Habbit Available456',
+                        style: TextFontStyle.headline18w600cFEFFFFStyleRoboto
+                            .copyWith(
+                          fontSize: 24.sp,
+                          color: AppColors.c222222,
+                        ),
+                      ),
+                    );
+                  }
                 },
               ),
             ],
           ),
         ),
       ),
-    
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: Colors.blue,
-      //   shape: RoundedRectangleBorder(
-      //     // Optional: set custom shape
-      //     borderRadius: BorderRadius.circular(100),
-      //   ),
-      //   onPressed: () {},
-      //   child: Icon(
-      //     Icons.add,
-      //     color: AppColors.cFFFFFF,
-      //   ),
-      // ),
     );
   }
 
@@ -286,7 +370,6 @@ class DateDayTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 45.w,
         height: 60.h,
         margin: EdgeInsets.only(left: 8.w),
         padding: EdgeInsets.all(8.0),

@@ -4,12 +4,14 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final TextInputType inputType;
+  final FormFieldValidator<String>? validator;
+
 
   // Constructor to accept controller and other properties
   const CustomTextField({super.key, 
     required this.controller,
     required this.hintText,
-    this.inputType = TextInputType.text,
+    this.inputType = TextInputType.text, this.validator,
   });
 
   @override
@@ -24,6 +26,7 @@ class CustomTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.0), // Rounded corners
         ),
       ),
+      validator: validator,
     );
   }
 }
