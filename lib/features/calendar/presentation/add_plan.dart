@@ -3,16 +3,30 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jackelieson/constant/text_font_style.dart';
 import 'package:jackelieson/features/calendar/presentation/create_event/create_event.dart';
-import 'package:jackelieson/features/habits/create_habbit/create_habbit.dart';
+import 'package:jackelieson/features/habits/presentation/create_habbit/create_habbit.dart';
 import 'package:jackelieson/features/tasks/presentation/create_task/create_task.dart';
 import 'package:jackelieson/gen/assets.gen.dart';
 import 'package:jackelieson/gen/colors.gen.dart';
 import 'package:jackelieson/helper/ui_helpers.dart';
 
 class AddPlanWidget extends StatefulWidget {
-  const AddPlanWidget({super.key, required this.selectedIndex});
+  const AddPlanWidget(
+      {super.key,
+      required this.selectedIndex,
+      this.isEditTask,
+      this.editTaskTitle,
+      this.editTaskTime,
+      this.editTaskDate,
+      this.editTaskId, this.editTaskColor});
 
   final int selectedIndex;
+  final bool? isEditTask;
+  final dynamic editTaskTitle;
+  final dynamic editTaskTime;
+  final dynamic editTaskDate;
+  final dynamic editTaskId;
+  final dynamic editTaskColor;
+
   @override
   State<AddPlanWidget> createState() => _AddPlanWidgetState();
 }
@@ -57,102 +71,104 @@ class _AddPlanWidgetState extends State<AddPlanWidget>
       padding: EdgeInsets.all(16.sp),
       decoration: BoxDecoration(
           color: AppColors.cFFFFFF, borderRadius: BorderRadius.circular(24.r)),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: SvgPicture.asset(
-                Assets.icons.closeCircle,
-                height: 30.sp,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          UIHelper.verticalSpace(20.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(_buildTitle(widget.selectedIndex),
-                  style: TextFontStyle.headline16w600c686868StyleRoboto
-                      .copyWith(fontSize: 24.sp)),
-              GestureDetector(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: GestureDetector(
                 onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (context) => _buildPlanDetails(),
-                  );
+                  Navigator.pop(context);
                 },
                 child: SvgPicture.asset(
-                  Assets.icons.detailInfoIcon,
-                  height: 28.sp,
+                  Assets.icons.closeCircle,
+                  height: 30.sp,
                   fit: BoxFit.cover,
                 ),
               ),
-            ],
-          ),
-          UIHelper.verticalSpace(24.h),
-          _buildEvent(widget.selectedIndex),
+            ),
+            UIHelper.verticalSpace(20.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(_buildTitle(widget.selectedIndex),
+                    style: TextFontStyle.headline16w600c686868StyleRoboto
+                        .copyWith(fontSize: 24.sp)),
+                GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) => _buildPlanDetails(),
+                    );
+                  },
+                  child: SvgPicture.asset(
+                    Assets.icons.detailInfoIcon,
+                    height: 28.sp,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ],
+            ),
+            UIHelper.verticalSpace(24.h),
+            _buildEvent(widget.selectedIndex),
 
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //   children: List.generate(
-          //     tabItem.length,
-          //     (index) => GestureDetector(
-          //       onTap: () {
-          //         setState(() {
-          //           _tabController.index = index;
-          //         });
-          //       },
-          //       child: Container(
-          //         padding:
-          //             EdgeInsets.symmetric(vertical: 8.sp, horizontal: 12.sp),
-          //         decoration: BoxDecoration(
-          //           color: _tabController.index == index
-          //               ? AppColors.allPrimaryColor
-          //               : AppColors.cFFFFFF,
-          //           border: Border.all(color: AppColors.allPrimaryColor),
-          //           borderRadius: BorderRadius.circular(8.r),
-          //         ),
-          //         child: Row(
-          //           children: [
-          //             SvgPicture.asset(
-          //               tabItem[index]["icon"],
-          //               color: _tabController.index == index
-          //                   ? AppColors.cFFFFFF
-          //                   : AppColors.allPrimaryColor,
-          //             ),
-          //             UIHelper.horizontalSpaceSmall,
-          //             Text(
-          //               tabItem[index]["title"],
-          //               style: TextStyle(
-          //                 color: _tabController.index == index
-          //                     ? AppColors.cFFFFFF
-          //                     : AppColors.allPrimaryColor,
-          //                 fontWeight: FontWeight.w500,
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          // UIHelper.verticalSpace(20.h),
-          // Expanded(
-          //     child: IndexedStack(
-          //   index: _tabController.index,
-          //   children: [
-          //     CreateEventWidget(),
-          //     CreateEventWidget(),
-          //     CreateEventWidget(),
-          //   ],
-          // )),
-        ],
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: List.generate(
+            //     tabItem.length,
+            //     (index) => GestureDetector(
+            //       onTap: () {
+            //         setState(() {
+            //           _tabController.index = index;
+            //         });
+            //       },
+            //       child: Container(
+            //         padding:
+            //             EdgeInsets.symmetric(vertical: 8.sp, horizontal: 12.sp),
+            //         decoration: BoxDecoration(
+            //           color: _tabController.index == index
+            //               ? AppColors.allPrimaryColor
+            //               : AppColors.cFFFFFF,
+            //           border: Border.all(color: AppColors.allPrimaryColor),
+            //           borderRadius: BorderRadius.circular(8.r),
+            //         ),
+            //         child: Row(
+            //           children: [
+            //             SvgPicture.asset(
+            //               tabItem[index]["icon"],
+            //               color: _tabController.index == index
+            //                   ? AppColors.cFFFFFF
+            //                   : AppColors.allPrimaryColor,
+            //             ),
+            //             UIHelper.horizontalSpaceSmall,
+            //             Text(
+            //               tabItem[index]["title"],
+            //               style: TextStyle(
+            //                 color: _tabController.index == index
+            //                     ? AppColors.cFFFFFF
+            //                     : AppColors.allPrimaryColor,
+            //                 fontWeight: FontWeight.w500,
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            // UIHelper.verticalSpace(20.h),
+            // Expanded(
+            //     child: IndexedStack(
+            //   index: _tabController.index,
+            //   children: [
+            //     CreateEventWidget(),
+            //     CreateEventWidget(),
+            //     CreateEventWidget(),
+            //   ],
+            // )),
+          ],
+        ),
       ),
     );
   }
@@ -280,7 +296,14 @@ class _AddPlanWidgetState extends State<AddPlanWidget>
       case 1:
         return CreateHabbitWidget();
       case 2:
-        return CreateTaskWidget();
+        return CreateTaskWidget(
+          isEditTask: widget.isEditTask,
+          editTaskDate: widget.editTaskDate,
+          editTaskId: widget.editTaskId,
+          editTaskTime: widget.editTaskTime,
+          editTaskTitle: widget.editTaskTitle,
+          editTaskColor: widget.editTaskColor,
+        );
       default:
         return SizedBox.shrink();
     }
@@ -293,7 +316,7 @@ class _AddPlanWidgetState extends State<AddPlanWidget>
       case 1:
         return 'Add Habbit';
       case 2:
-        return "Add Task";
+        return widget.isEditTask == true ? "Edit Task" : "Add Task";
       default:
         return "Title";
     }

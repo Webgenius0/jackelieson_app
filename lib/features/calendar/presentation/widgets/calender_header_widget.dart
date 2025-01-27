@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:jackelieson/common_widgets/custom_network_image.dart';
 import 'package:jackelieson/gen/assets.gen.dart';
 import 'package:jackelieson/gen/colors.gen.dart';
 import 'package:jackelieson/helper/ui_helpers.dart';
@@ -11,11 +12,13 @@ class CalenderHeaderWidget extends StatelessWidget {
     this.showPopupMenu,
     this.onCalenderTap,
     required this.calenderDate,
+    this.imageUrl,
   });
 
   final VoidCallback? showPopupMenu;
   final VoidCallback? onCalenderTap;
   final String calenderDate;
+  final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +35,20 @@ class CalenderHeaderWidget extends StatelessWidget {
         children: [
           Row(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(50.r),
-                child: Image.asset(
-                  height: 32.h,
-                  width: 32.w,
-                  Assets.images.perons.path,
-                ),
-              ),
+              imageUrl != null
+                  ? CustomNetworkImageWidget(
+                      urls: imageUrl!,
+                      height: 50.h,
+                      width: 50.h,
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(50.r),
+                      child: Image.asset(
+                        height: 32.h,
+                        width: 32.w,
+                        Assets.images.perons.path,
+                      ),
+                    ),
               UIHelper.horizontalSpace(8.w),
               GestureDetector(
                   onTap: onCalenderTap, child: _buildDateSelector()),

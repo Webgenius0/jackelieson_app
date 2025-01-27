@@ -5,7 +5,7 @@ import 'package:jackelieson/constant/text_font_style.dart';
 import 'package:jackelieson/features/calendar/presentation/add_plan.dart';
 import 'package:jackelieson/features/calendar/presentation/calendar_screen.dart';
 import 'package:jackelieson/features/calendar/presentation/widgets/add_event_button.dart';
-import 'package:jackelieson/features/habits/habbit_screen.dart';
+import 'package:jackelieson/features/habits/presentation/habbit_screen.dart';
 import 'package:jackelieson/features/settings/presentation/setting/settings_screen.dart';
 import 'package:jackelieson/features/tasks/presentation/task_screen.dart';
 import 'package:jackelieson/gen/assets.gen.dart';

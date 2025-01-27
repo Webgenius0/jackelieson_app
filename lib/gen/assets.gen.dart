@@ -267,6 +267,12 @@ class $AssetsImagesGen {
 class $AssetsLottieGen {
   const $AssetsLottieGen();
 
+  /// File path: assets/lottie/loading_round.json
+  String get loadingRound => 'assets/lottie/loading_round.json';
+
+  /// File path: assets/lottie/loading_round_lottie.lottie
+  String get loadingRoundLottie => 'assets/lottie/loading_round_lottie.lottie';
+
   /// File path: assets/lottie/lodding_animation.json
   String get loddingAnimation => 'assets/lottie/lodding_animation.json';
 
@@ -274,7 +280,8 @@ class $AssetsLottieGen {
   String get lodingBoxDesign => 'assets/lottie/loding_box_design.lottie';
 
   /// List of all assets
-  List<String> get values => [loddingAnimation, lodingBoxDesign];
+  List<String> get values =>
+      [loadingRound, loadingRoundLottie, loddingAnimation, lodingBoxDesign];
 }
 
 class Assets {

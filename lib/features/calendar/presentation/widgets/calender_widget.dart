@@ -88,26 +88,26 @@ class CalenderWidget extends StatelessWidget {
         backgroundColor: AppColors.cF7F7F7,
       ),
 
-      appointmentBuilder: (context, calendarAppointmentDetails) {
-        final Meeting appointment =
-            calendarAppointmentDetails.appointments.first;
+      // appointmentBuilder: (context, calendarAppointmentDetails) {
+      //   final Meeting appointment =
+      //       calendarAppointmentDetails.appointments.first;
 
-        return Container(
-          padding: EdgeInsets.all(5.sp),
-          margin: EdgeInsets.only(left: 12.sp),
-          decoration: BoxDecoration(
-            color: appointment.background,
-            borderRadius: BorderRadius.circular(10.r),
-          ),
-          child: Center(
-            child: Text(
-              appointment.eventName,
-              style: TextFontStyle.headline16w500cFEFFFFStyleRoboto
-                  .copyWith(fontSize: 16.sp),
-            ),
-          ),
-        );
-      },
+      //   return Container(
+      //     padding: EdgeInsets.all(5.sp),
+      //     margin: EdgeInsets.only(left: 12.sp),
+      //     decoration: BoxDecoration(
+      //       color: appointment.background,
+      //       borderRadius: BorderRadius.circular(10.r),
+      //     ),
+      //     child: Center(
+      //       child: Text(
+      //         appointment.eventName,
+      //         style: TextFontStyle.headline16w500cFEFFFFStyleRoboto
+      //             .copyWith(fontSize: 16.sp),
+      //       ),
+      //     ),
+      //   );
+      // },
     );
   }
 }

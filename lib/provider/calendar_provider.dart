@@ -1,57 +1,57 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 
 class CalendarProvider extends ChangeNotifier {
-  // CalendarView? calenderview;
-  // SfCalendar? temp;
+  DateTime selectedDate = DateTime.now();
 
-  // toggleMenu(result) {
-  //   if (result != null) {
-  //     switch (result) {
-  //       case 'Daily View':
-  //         calenderview = CalendarView.day;
+  setInitialTime(initialDate) {
+    selectedDate = initialDate;
+    log(initialDate.toString());
+  }
 
-  //         break;
-  //       case 'Schedule View':
-  //         calenderview = CalendarView.schedule;
+  // DateTime get selectedDate => selectedDate;
 
-  //         break;
-  //       case '3 Day View':
-  //         calenderview = CalendarView.timelineDay;
+  int get daysInMonth {
+    return DateTime(selectedDate.year, selectedDate.month + 1, 0).day;
+  }
 
-  //         // is3DayView = true;
+  int get daysInText {
+    return DateTime(selectedDate.year, selectedDate.month + 1, 0).weekday;
+  }
 
-  //         break;
-  //       case 'Weekly View':
-  //         calenderview = CalendarView.week;
+  int get selectedIndex {
+    return selectedDate.day - 1;
+  }
 
-  //         break;
-  //       case 'Monthly View':
-  //         calenderview = CalendarView.month;
+  void selectDate(int day) {
+    selectedDate = DateTime(selectedDate.year, selectedDate.month, day);
+    log(selectedDate.day.toString());
+    notifyListeners();
+  }
 
-  //         break;
-  //     }
-  //     appData.write(kKeyCalenderView, calenderview.toString());
-  //   }
-  //   notifyListeners();
-  // }
 
-  // buildCalenderViews() {
-  //   log(calenderview.toString());
-  //   switch (calenderview) {
-  //     case CalendarView.day:
-  //       temp = SfCalendar(view: CalendarView.day);
-  //     case CalendarView.schedule:
-  //       temp = SfCalendar(view: CalendarView.schedule);
-  //     case CalendarView.timelineDay:
-  //       temp = SfCalendar(view: CalendarView.timelineDay);
-  //     case CalendarView.week:
-  //       temp = SfCalendar(view: CalendarView.week);
-  //     case CalendarView.month:
-  //       temp = SfCalendar(view: CalendarView.month);
-  //     default:
-  //       temp = SfCalendar(view: CalendarView.month);
-  //   }
-  //   notifyListeners();
-  //   return temp;
-  // }
+  String getWeekdayName(int day) {
+    DateTime date = DateTime(selectedDate.year, selectedDate.month, day);
+    int weekdat = date.weekday;
+
+    switch (weekdat) {
+      case 1:
+        return "Mon";
+      case 2:
+        return "Tue";
+      case 3:
+        return "Wed";
+      case 4:
+        return "Thu";
+      case 5:
+        return "Fri";
+      case 6:
+        return "Sat";
+      case 7:
+        return "Sun";
+      default:
+        return "$weekdat";
+    }
+  }
 }

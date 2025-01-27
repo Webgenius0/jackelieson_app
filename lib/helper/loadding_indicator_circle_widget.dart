@@ -10,7 +10,7 @@ Widget loadingIndicatorCircle({
   double? size,
 }) {
   double loaderSize = 200.sp;
-  return DotLottieLoader.fromAsset(Assets.lottie.lodingBoxDesign,
+  return DotLottieLoader.fromAsset(Assets.lottie.loadingRoundLottie,
       frameBuilder: (BuildContext ctx, DotLottie? dotlottie) {
     if (dotlottie != null) {
       return Center(

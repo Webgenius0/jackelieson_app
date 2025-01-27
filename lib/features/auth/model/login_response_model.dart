@@ -51,10 +51,12 @@ class Data {
     String? name;
     String? email;
     String? phone;
-    dynamic weekStartsOn;
+    String? weekStartsOn;
     String? isNotification;
     dynamic avatar;
-    dynamic token;
+    bool? userHabit;
+    dynamic code;
+    String? token;
 
     Data({
         this.id,
@@ -65,6 +67,8 @@ class Data {
         this.weekStartsOn,
         this.isNotification,
         this.avatar,
+        this.userHabit,
+        this.code,
         this.token,
     });
 
@@ -74,10 +78,12 @@ class Data {
         String? name,
         String? email,
         String? phone,
-        dynamic weekStartsOn,
+        String? weekStartsOn,
         String? isNotification,
         dynamic avatar,
-        dynamic token,
+        bool? userHabit,
+        dynamic code,
+        String? token,
     }) => 
         Data(
             id: id ?? this.id,
@@ -88,6 +94,8 @@ class Data {
             weekStartsOn: weekStartsOn ?? this.weekStartsOn,
             isNotification: isNotification ?? this.isNotification,
             avatar: avatar ?? this.avatar,
+            userHabit: userHabit ?? this.userHabit,
+            code: code ?? this.code,
             token: token ?? this.token,
         );
 
@@ -104,6 +112,8 @@ class Data {
         weekStartsOn: json["week_starts_on"],
         isNotification: json["is_notification"],
         avatar: json["avatar"],
+        userHabit: json["user_habit"],
+        code: json["code"],
         token: json["token"],
     );
 
@@ -116,6 +126,8 @@ class Data {
         "week_starts_on": weekStartsOn,
         "is_notification": isNotification,
         "avatar": avatar,
+        "user_habit": userHabit,
+        "code": code,
         "token": token,
     };
 }

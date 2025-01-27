@@ -37,4 +37,21 @@ final class Endpoints {
   static String getProfile() => "/users/data";
   static String updateProfile() => "/users/data/update";
   static String changePass() => "/users/change/password";
+  static String setProfle() => "/users/set-profile";
+  static String getAllHabbit() => "/habit/all";
+  static String getAllTask({required String month}) => "/task/all?month=$month";
+  static String editTask({required dynamic id}) => "/task/edit/$id";
+  static String deleteTask({required dynamic id}) => "/task/delete/$id";
+  static String createTask() => "/task/create";
+  static String getHabbit({required String day}) => "/my/habits/all?day=$day";
+  static String habbitDetails({required dynamic id}) => "/my/habit/single/$id";
+  static String createHabbit() => "/user/habits/assign";
+  static String createEvent() => "/event/create";
+  // static String completeOrincompleteHabbit() =>
+  //     "/my/habits/complete/status/complete/4";
+  static String getEvent() => "/event/all";
+  static String habbitStatus({required String status, required dynamic id}) =>
+      "/my/habits/complete/status/$status/$id";
+
+  static String habbitHistory({required dynamic id}) => "/my/habit/history/$id";
 }

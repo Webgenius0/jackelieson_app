@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:jackelieson/features/settings/data/get_profile/api.dart';
 import 'package:jackelieson/features/settings/model/get_profile_response_model.dart';
+import 'package:jackelieson/helper/di.dart';
 import 'package:jackelieson/helper/toast.dart';
 import 'package:jackelieson/networks/rx_base.dart';
 import 'package:rxdart/streams.dart';
@@ -26,6 +27,8 @@ final class GetProfileRx extends RxResponseInt<GetProfileResponseModel> {
   handleSuccessWithReturn(data) async {
     log('message');
     GetProfileResponseModel response = data;
+
+    await appData.write("kkavatar", response.data?.avatar);
     // String? accessToken = response.data?.token;
     // String? name = response.data?.name;
     // String? email = response.data?.email;
