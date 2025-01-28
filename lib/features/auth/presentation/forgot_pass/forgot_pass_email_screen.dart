@@ -65,8 +65,6 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
                         ' Enter your email address below and we will send you a code to reset password. ',
                         style: TextFontStyle.headline14w400cFEFFFFStyleRoboto
                             .copyWith(
-
-                              
                           fontSize: 14.sp,
                           color: AppColors.c555555,
                         ),
@@ -86,7 +84,8 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
                         isPrefixIcon: true,
                         fillColor: AppColors.cF7F7F7,
                         prefixImage: Assets.icons.mail,
-                        hintText: 'Enter New password',
+                        hintText: 'Enter Email',
+                        textInputAction: TextInputAction.done,
                         borderRadius: 4.r,
                         validator: (value) {
                           if (value == null || value.isEmpty) {

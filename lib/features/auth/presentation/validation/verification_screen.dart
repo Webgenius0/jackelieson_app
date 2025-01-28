@@ -43,7 +43,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
         .then(
       (response) {
         OtpVerifyResponseModel data = response;
-        if (data.code == 200) NavigationService.navigateTo(Routes.navigation);
+        if (data.code == 200) NavigationService.navigateTo(Routes.loginScreen);
       },
     );
   }

@@ -6,8 +6,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:jackelieson/constant/text_font_style.dart';
 import 'package:jackelieson/features/habits/model/get_habbit_response_model.dart';
-import 'package:jackelieson/features/habits/model/habbit_details_response_model.dart';
-import 'package:jackelieson/features/habits/model/habbit_status_response_model.dart';
 import 'package:jackelieson/features/habits/presentation/habbit_deatils_screen.dart';
 import 'package:jackelieson/features/habits/presentation/widgets/habbit_tile_widget.dart';
 import 'package:jackelieson/gen/assets.gen.dart';
@@ -151,105 +149,105 @@ class _HabitTabScreenState extends State<HabitTabScreen> {
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return Center(
-                      child: Text('An error occurred: ${snapshot.error}',
-                          style: const TextStyle(color: Colors.red)),
+                      child: Text(
+                        'An error occurred: ${snapshot.error}',
+                        style: const TextStyle(color: Colors.red),
+                      ),
                     );
                   }
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
-                        child: loadingIndicatorCircle(context: context));
+                      child: loadingIndicatorCircle(context: context),
+                    );
                   }
-                  if (snapshot.hasData) {
-                    if (snapshot.data?.data != null) {
-                      return ListView.separated(
-                        separatorBuilder: (context, index) =>
-                            UIHelper.verticalSpaceSmall,
-                        itemCount: snapshot.data?.data?.length ?? 0,
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          final item = snapshot.data?.data?[index];
 
-                          final day1 = item?.days?.first;
-                          final day2 = item?.days?.last;
-                          log("+++++++++++++${item?.taskStatus?.toLowerCase()} $index");
-                          return HabbitTileWidget(
-                            isStatus:
-                                item?.taskStatus?.toLowerCase() == "incomplete",
-                            icon: item?.imageUrl ?? "",
-                            title: item?.name ?? "",
-                            week: "$day1 - $day2",
-                            streak: item?.streak.toString() ?? "0",
-                            status: item?.taskStatus ?? "",
-                            onTap: () async {
-                              await habbitDetailsRxObj
-                                  .habbitDetails(id: item?.id)
-                                  .waitingForFuture()
-                                  .then((data) async {
-                                HabbitDetailsResponseModel res = data;
-                                if (res.success == true) {
-                                  await Get.to(() => HabbitDeatilsScreen(
-                                        data: res,
-                                      ));
-                                }
-                              });
-                            },
-                            onCancelTap: () async {
-                              await habbitStatusRxObj
-                                  .habbitStatus(status: "cancel", id: item?.id)
-                                  .waitingForFuture()
-                                  .then((res) async {
-                                HabbitStatusResponseModel data = res;
-                                if (data.success == true) {
-                                  await getHabbitRxObj
-                                      .getAllTask(day: "wed")
-                                      .waitingForFuture();
-                                }
-                              });
-                            },
-                            onDoneTap: () async {
-                              await habbitStatusRxObj
-                                  .habbitStatus(
-                                      status: "complete", id: item?.id)
-                                  .waitingForFuture()
-                                  .then((res) async {
-                                HabbitStatusResponseModel data = res;
-                                if (data.success == true) {
-                                  await getHabbitRxObj
-                                      .getAllTask(day: "wed")
-                                      .waitingForFuture();
-                                }
-                              });
-                            },
-                          );
-                        },
+                  if (snapshot.hasData) {
+                    final habits = snapshot.data?.data;
+
+                    if (habits == null || habits.isEmpty) {
+                      return Center(
+                        child: Text(
+                          'No Habits Available',
+                          style: TextFontStyle.headline18w600cFEFFFFStyleRoboto
+                              .copyWith(
+                            fontSize: 24.sp,
+                            color: AppColors.c222222,
+                          ),
+                        ),
                       );
                     }
 
-                    return Expanded(
-                      child: Text(
-                        'No Habbit Available1123',
-                        style: TextFontStyle.headline18w600cFEFFFFStyleRoboto
-                            .copyWith(
-                          fontSize: 24.sp,
-                          color: AppColors.c222222,
-                        ),
-                      ),
-                    );
-                  } else {
-                    return Expanded(
-                      child: Text(
-                        'No Habbit Available456',
-                        style: TextFontStyle.headline18w600cFEFFFFStyleRoboto
-                            .copyWith(
-                          fontSize: 24.sp,
-                          color: AppColors.c222222,
-                        ),
-                      ),
+                    return ListView.separated(
+                      separatorBuilder: (context, index) =>
+                          UIHelper.verticalSpaceSmall,
+                      itemCount: habits.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        final item = habits[index];
+                        final day1 = item.days?.first;
+                        final day2 = item.days?.last;
+
+                        return HabbitTileWidget(
+                          isStatus:
+                              item.taskStatus?.toLowerCase() == "incomplete",
+                          icon: item.imageUrl ?? "",
+                          title: item.name ?? "",
+                          week: "$day1 - $day2",
+                          streak: item.streak?.toString() ?? "0",
+                          status: item.taskStatus ?? "",
+                          onTap: () async {
+                            await habbitDetailsRxObj
+                                .habbitDetails(id: item.id)
+                                .waitingForFuture()
+                                .then((data) async {
+                              if (data.success == true) {
+                                await Get.to(
+                                    () => HabbitDeatilsScreen(data: data));
+                              }
+                            });
+                          },
+                          onCancelTap: () async {
+                            await habbitStatusRxObj
+                                .habbitStatus(status: "cancel", id: item.id)
+                                .waitingForFuture()
+                                .then((res) async {
+                              if (res.success == true) {
+                                await getHabbitRxObj
+                                    .getAllTask(day: "wed")
+                                    .waitingForFuture();
+                              }
+                            });
+                          },
+                          onDoneTap: () async {
+                            await habbitStatusRxObj
+                                .habbitStatus(status: "complete", id: item.id)
+                                .waitingForFuture()
+                                .then((res) async {
+                              if (res.success == true) {
+                                await getHabbitRxObj
+                                    .getAllTask(day: "wed")
+                                    .waitingForFuture();
+                              }
+                            });
+                          },
+                        );
+                      },
                     );
                   }
+
+                  return Center(
+                    child: Text(
+                      'No Habits Available',
+                      style: TextFontStyle.headline18w600cFEFFFFStyleRoboto
+                          .copyWith(
+                        fontSize: 24.sp,
+                        color: AppColors.c222222,
+                      ),
+                    ),
+                  );
                 },
-              ),
+              )
             ],
           ),
         ),

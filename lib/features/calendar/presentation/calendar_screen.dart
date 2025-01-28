@@ -17,6 +17,7 @@ import 'package:jackelieson/helper/lodding_helper.dart';
 import 'package:jackelieson/helper/ui_helpers.dart';
 import 'package:jackelieson/networks/api_acess.dart';
 import 'package:jackelieson/provider/calendar_provider.dart';
+import 'package:jackelieson/provider/calender_update_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
@@ -30,7 +31,7 @@ class CalendarScreen extends StatefulWidget {
 class CalendarScreenState extends State<CalendarScreen> {
   final CalendarController calendarController = CalendarController();
 
-  GetEventResponseModel? res;
+  // GetEventResponseModel? res;
   late ScrollController _scrollController;
   dynamic avatar;
 
@@ -87,19 +88,20 @@ class CalendarScreenState extends State<CalendarScreen> {
     _scrollController = ScrollController();
     calendarController.selectedDate =
         DateTime(initialYear, initialMonth, initialDay);
-    // _eventController = Provider.of<EventController>(context, listen: false);
-    // addEventToController();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       scrollToSelectedDate();
     });
   }
 
   Future<void> getData() async {
+    var provider = Provider.of<CalenderUpdateProvider>(context, listen: false);
     try {
-      final data = await getEventRxObj.getEvent().waitingForFuture();
-      setState(() {
-        res = data;
-        avatar = appData.read("kkavatar");
+      await getEventRxObj.getEvent().waitingForFuture().then((res) {
+        GetEventResponseModel data = res;
+
+        if (data.code == 200) {
+          provider.getResponse(res: data);
+        }
       });
     } catch (e) {
       log("Error fetching data: $e");
@@ -107,7 +109,10 @@ class CalendarScreenState extends State<CalendarScreen> {
   }
 
   List<Meeting> _getDataSource() {
+    var provider = Provider.of<CalenderUpdateProvider>(context, listen: true);
     final List<Meeting> meetings = [];
+
+    GetEventResponseModel? res = provider.eventResponse;
 
     if (res?.data != null) {
       for (var event in res!.data!) {

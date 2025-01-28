@@ -112,7 +112,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         provider.toggleObsecure();
                         print('object');
                       },
-                      textInputAction: TextInputAction.done,
+                      textInputAction: TextInputAction.next,
                       hintText: 'Enter New password',
                       borderRadius: 4.r,
                       validator: (value) {
