@@ -1,5 +1,6 @@
 import 'package:jackelieson/provider/auth_provider.dart';
 import 'package:jackelieson/provider/calendar_provider.dart';
+import 'package:jackelieson/provider/calender_update_provider.dart';
 import 'package:jackelieson/provider/habbit_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -10,4 +11,6 @@ var providers = [
   ChangeNotifierProvider<EventController>(
       create: ((context) => EventController())),
   ChangeNotifierProvider<Calendar>(create: ((context) => Calendar())),
+  ChangeNotifierProvider<CalenderUpdateProvider>(
+      create: ((context) => CalenderUpdateProvider())),
 ];

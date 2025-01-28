@@ -6,10 +6,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:jackelieson/common_widgets/custom_text_field_app_plan.dart';
 import 'package:jackelieson/constant/text_font_style.dart';
+import 'package:jackelieson/features/calendar/model/create_event_response_model.dart';
 import 'package:jackelieson/gen/assets.gen.dart';
 import 'package:jackelieson/gen/colors.gen.dart';
+import 'package:jackelieson/helper/lodding_helper.dart';
+import 'package:jackelieson/helper/navigation_service.dart';
 import 'package:jackelieson/helper/ui_helpers.dart';
 import 'package:jackelieson/networks/api_acess.dart';
+import 'package:jackelieson/provider/calender_update_provider.dart';
+import 'package:provider/provider.dart';
 
 class CreateEventWidget extends StatefulWidget {
   const CreateEventWidget({super.key});
@@ -25,6 +30,21 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
   final TextEditingController _endTimeController = TextEditingController();
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2026),
+    );
+
+    if (pickedDate != null) {
+      setState(() {
+        _dateController.text = DateFormat('yyyy-MM-DD').format(pickedDate);
+      });
+    }
+  }
 
   Future<void> _selectTime(
       BuildContext context, TextEditingController controller) async {
@@ -101,23 +121,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                 borderRadius: BorderRadius.circular(8.0),
               ),
             ),
-            onTap: () async {
-              // Show date picker when user taps on the field
-              DateTime? pickedDate = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(1900),
-                lastDate: DateTime(2101),
-              );
-              if (pickedDate != null) {
-                setState(() {
-                  _timeController.text = pickedDate
-                      .toLocal()
-                      .toString()
-                      .split(' ')[0]; // Format the date to YYYY-MM-DD
-                });
-              }
-            },
+            onTap: () => _selectDate(context),
           ),
           UIHelper.verticalSpace(
             20,
@@ -139,20 +143,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
-                      onTap: () async {
-                        DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(1900),
-                          lastDate: DateTime(2101),
-                        );
-                        if (pickedDate != null) {
-                          setState(() {
-                            _dateController.text =
-                                pickedDate.toLocal().toString().split(' ')[0];
-                          });
-                        }
-                      },
+                      onTap: () => _selectTime(context, _timeController),
                     ),
                   ),
                 ),
@@ -228,16 +219,39 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
             alignment: Alignment.centerRight,
             child: GestureDetector(
               onTap: () {
-                createEventRxObj.createHabbit(
-                  title: _titleController.text.trim(),
-                  date: _dateController.text.trim(),
-                  startTime: DateFormat("HH:mm").format(
-                      DateFormat("hh:mm a").parse(_timeController.text.trim())),
-                      
-                  endTime: DateFormat("HH:mm").format(DateFormat("hh:mm a")
-                      .parse(_endTimeController.text.trim())),
-                  color: pickerColor.toHexString(),
-                );
+                createEventRxObj
+                    .createHabbit(
+                      title: _titleController.text.trim(),
+                      date: _dateController.text.trim(),
+                      startTime: DateFormat("HH:mm").format(
+                          DateFormat("hh:mm a")
+                              .parse(_timeController.text.trim())),
+                      endTime: DateFormat("HH:mm").format(DateFormat("hh:mm a")
+                          .parse(_endTimeController.text.trim())),
+                      color: pickerColor.toHexString(),
+                    )
+                    .waitingForFuture()
+                    .then((res) async {
+                  CreateEventResponseModel data = res;
+
+                  if (data.success == true) {
+                    await getEventRxObj
+                        .getEvent()
+                        .waitingForFuture()
+                        .then((res) {
+                      var provider = Provider.of<CalenderUpdateProvider>(
+                          context,
+                          listen: false);
+
+                      provider.getResponse(res: res);
+
+                      log("message852");
+                      NavigationService.goBack;
+                    });
+                  } else {
+                    NavigationService.goBack;
+                  }
+                });
               },
               child: Container(
                 height: 52.h,

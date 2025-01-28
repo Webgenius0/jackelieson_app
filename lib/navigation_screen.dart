@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,6 +12,7 @@ import 'package:jackelieson/features/settings/presentation/setting/settings_scre
 import 'package:jackelieson/features/tasks/presentation/task_screen.dart';
 import 'package:jackelieson/gen/assets.gen.dart';
 import 'package:jackelieson/gen/colors.gen.dart';
+import 'package:jackelieson/helper/helpers_method.dart';
 import 'package:jackelieson/helper/ui_helpers.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -42,91 +45,97 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: bodyItemList[selectedIndex],
-      backgroundColor: AppColors.cFFFFFF,
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
-        height: 80.h,
-        width: double.infinity,
-        color: AppColors.cF4F4F4,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: List.generate(
-            itemList.length,
-            (index) {
-              return GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedIndex = index;
-                  });
-                },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 14.w, vertical: 4.h),
-                      clipBehavior: Clip.antiAlias,
-                      decoration: ShapeDecoration(
-                        color: selectedIndex == index
-                            ? AppColors.c0070F0
-                            : Colors.transparent,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(32.r),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        showMaterialDialog(context);
+      },
+      child: Scaffold(
+        body: bodyItemList[selectedIndex],
+        backgroundColor: AppColors.cFFFFFF,
+        bottomNavigationBar: Container(
+          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+          height: 80.h,
+          width: double.infinity,
+          color: AppColors.cF4F4F4,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: List.generate(
+              itemList.length,
+              (index) {
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = index;
+                    });
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 14.w, vertical: 4.h),
+                        clipBehavior: Clip.antiAlias,
+                        decoration: ShapeDecoration(
+                          color: selectedIndex == index
+                              ? AppColors.c0070F0
+                              : Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(32.r),
+                          ),
+                        ),
+                        child: SvgPicture.asset(
+                          itemList[index]["icon"] ?? Assets.icons.calender,
+                          height: 21.h,
+                          width: 21.h,
+                          fit: BoxFit.cover,
+                          color: selectedIndex == index
+                              ? AppColors.cFFFFFF
+                              : AppColors.c686868,
                         ),
                       ),
-                      child: SvgPicture.asset(
-                        itemList[index]["icon"] ?? Assets.icons.calender,
-                        height: 21.h,
-                        width: 21.h,
-                        fit: BoxFit.cover,
-                        color: selectedIndex == index
-                            ? AppColors.cFFFFFF
-                            : AppColors.c686868,
+                      UIHelper.verticalSpace(4.h),
+                      Text(
+                        itemList[index]["label"],
+                        textAlign: TextAlign.center,
+                        style: TextFontStyle.headline16w500cFEFFFFStyleRoboto
+                            .copyWith(
+                          fontSize: 12.sp,
+                          color: selectedIndex == index
+                              ? AppColors.c0070F0
+                              : AppColors.c686868,
+                        ),
                       ),
-                    ),
-                    UIHelper.verticalSpace(4.h),
-                    Text(
-                      itemList[index]["label"],
-                      textAlign: TextAlign.center,
-                      style: TextFontStyle.headline16w500cFEFFFFStyleRoboto
-                          .copyWith(
-                        fontSize: 12.sp,
-                        color: selectedIndex == index
-                            ? AppColors.c0070F0
-                            : AppColors.c686868,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         ),
-      ),
-      floatingActionButton: selectedIndex != 3
-          ? AddEventButton(
-              // onTap: () => _showAddEventDialog(context),
-              onTap: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return Padding(
-                    padding: EdgeInsets.all(16.sp),
-                    child: Dialog(
-                      backgroundColor: AppColors.cFFFFFF,
-                      insetPadding: EdgeInsets.zero,
-                      alignment: Alignment.bottomCenter,
-                      child: AddPlanWidget(
-                        selectedIndex: selectedIndex,
+        floatingActionButton: selectedIndex != 3
+            ? AddEventButton(
+                // onTap: () => _showAddEventDialog(context),
+                onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return Padding(
+                      padding: EdgeInsets.all(16.sp),
+                      child: Dialog(
+                        backgroundColor: AppColors.cFFFFFF,
+                        insetPadding: EdgeInsets.zero,
+                        alignment: Alignment.bottomCenter,
+                        child: AddPlanWidget(
+                          selectedIndex: selectedIndex,
+                        ),
                       ),
-                    ),
-                  );
-                },
-              );
-            })
-          : SizedBox.shrink(),
+                    );
+                  },
+                );
+              })
+            : SizedBox.shrink(),
+      ),
     );
   }
 }
